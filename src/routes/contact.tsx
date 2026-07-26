@@ -303,6 +303,13 @@ function ContactPage() {
               </div>
             )}
 
+            {syncWarning && (
+              <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+                <span className="font-semibold">CRM sync notice:</span> {syncWarning}. Your WhatsApp message and PDF were still generated.
+              </div>
+            )}
+
+
 
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Full Name" error={errors.fullName}>
