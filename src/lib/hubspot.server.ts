@@ -26,7 +26,10 @@ type Transport = {
  *     Lovable preview/published deployments where those secrets are injected.
  */
 function resolveTransport(): Transport | null {
-  const token = process.env.HUBSPOT_ACCESS_TOKEN;
+  const token =
+    process.env.HUBSPOT_ACCESS_TOKEN ??
+    process.env.HUBSPOT_PRIVATE_APP_TOKEN ??
+    process.env.HUBSPOT_TOKEN;
   if (token) {
     return {
       url: HUBSPOT_API_URL,
@@ -56,11 +59,18 @@ function resolveTransport(): Transport | null {
 export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLeadResult> {
   const transport = resolveTransport();
   if (!transport) {
+    const seen = Object.keys(process.env ?? {})
+      .filter((k) => /HUBSPOT|LOVABLE/i.test(k))
+      .join(", ");
     console.error(
-      "HubSpot is not configured on this deployment: set HUBSPOT_ACCESS_TOKEN (private app token) in the hosting environment.",
+      `HubSpot is not configured on this deployment. Set HUBSPOT_ACCESS_TOKEN in the hosting environment. Related env keys visible to the server: [${seen || "none"}]`,
     );
-    return { ok: false, error: "HubSpot is not configured on this deployment" };
+    return {
+      ok: false,
+      error: `HubSpot token missing on server (env keys seen: ${seen || "none"})`,
+    };
   }
+
 
   const [firstname, ...rest] = lead.fullName.split(/\s+/);
   const properties: Record<string, string> = {
