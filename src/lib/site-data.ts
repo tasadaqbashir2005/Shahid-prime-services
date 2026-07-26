@@ -58,13 +58,21 @@ export const AIRLINE_SERVICES = [
   "Last Minute Deals",
 ];
 
+export const CR_SERVICES = [
+  "Sole Proprietorship",
+  "LLC Formation",
+  "Establishment",
+  "Renewals & Amendments",
+];
+
 export const ALL_SERVICES: string[] = [
   ...SCHENGEN_COUNTRIES.map((c) => `Schengen Visit Visa — ${c}`),
   ...GLOBAL_COUNTRIES.map((c) => `Global Visit Visa — ${c}`),
   ...WORK_PERMIT_COUNTRIES.map((c) => `Work Permit — ${c}`),
   ...STUDY_COUNTRIES.map((c) => `Study Visa — ${c}`),
-  "Umrah Visa — 1 Month (700 SAR)",
-  "Umrah Visa — 3 Month (1200 SAR)",
+  "Umrah Visa — 1 Month",
+  "Umrah Visa — 3 Month",
   ...SAUDI_SERVICES.map((s) => `Saudi Khidmat — ${s}`),
   ...AIRLINE_SERVICES.map((s) => `Airline Ticketing — ${s}`),
+  ...CR_SERVICES.map((s) => `CR Provider — ${s}`),
 ];

@@ -1,7 +1,7 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { z } from "zod";
 
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
@@ -57,11 +57,24 @@ type FormData = z.infer<typeof formSchema>;
 
 function ContactPage() {
   const search = useSearch({ from: "/contact" });
+  const incomingService = (search.service ?? "").trim();
+  // Keep the pre-selected service from the page the visitor came from, even if
+  // its exact wording isn't in the master list.
+  const serviceOptions = useMemo(() => {
+    const match = ALL_SERVICES.find(
+      (s) => s.toLowerCase() === incomingService.toLowerCase(),
+    );
+    if (!incomingService || match) return ALL_SERVICES;
+    return [incomingService, ...ALL_SERVICES];
+  }, [incomingService]);
+  const selectedService =
+    ALL_SERVICES.find((s) => s.toLowerCase() === incomingService.toLowerCase()) ??
+    incomingService;
   const [form, setForm] = useState<FormData>({
     fullName: "",
     phone: "",
     country: "",
-    service: search.service ?? "",
+    service: selectedService,
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -312,7 +325,7 @@ function ContactPage() {
                       className={inputCls}
                     >
                       <option value="">— Choose a service —</option>
-                      {ALL_SERVICES.map((s) => (
+                      {serviceOptions.map((s) => (
                         <option key={s} value={s}>
                           {s}
                         </option>
