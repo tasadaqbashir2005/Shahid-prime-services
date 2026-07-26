@@ -21,7 +21,20 @@ export const DEFAULT_COUNTRY: CountryCode = "PK";
  * Countries we try (in order) when the input has no explicit country code.
  * Ordered by the audience of this site.
  */
-const CANDIDATE_COUNTRIES: CountryCode[] = ["PK", "SA", "AE", "GB", "US", "CA"];
+const CANDIDATE_COUNTRIES: CountryCode[] = [
+  "SA",
+  "PK",
+  "AE",
+  "IN",
+  "BD",
+  "QA",
+  "KW",
+  "BH",
+  "OM",
+  "GB",
+  "US",
+  "CA",
+];
 
 /** Loose name/code -> ISO country code map for the free-text country field. */
 const COUNTRY_NAME_TO_ISO: Record<string, CountryCode> = {
