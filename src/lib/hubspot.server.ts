@@ -26,7 +26,10 @@ type Transport = {
  *     Lovable preview/published deployments where those secrets are injected.
  */
 function resolveTransport(): Transport | null {
-  const token = process.env.HUBSPOT_ACCESS_TOKEN;
+  const token =
+    process.env.HUBSPOT_ACCESS_TOKEN ??
+    process.env.HUBSPOT_PRIVATE_APP_TOKEN ??
+    process.env.HUBSPOT_TOKEN;
   if (token) {
     return {
       url: HUBSPOT_API_URL,
