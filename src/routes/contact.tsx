@@ -6,7 +6,6 @@ import { z } from "zod";
 import jsPDF from "jspdf";
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
-import { hubspotFormsEnabled, submitHubspotForm } from "@/lib/hubspot-forms";
 import { ALL_SERVICES, BRAND_NAME, CONTACT_ADDRESS, CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER, waLink } from "@/lib/site-data";
 
 
@@ -187,16 +186,7 @@ function ContactPage() {
       }
       if (serverError) {
         console.error("HubSpot lead sync failed:", serverError);
-        // Host-independent fallback: public HubSpot Forms endpoint from the browser.
-        if (hubspotFormsEnabled()) {
-          const fallback = await submitHubspotForm(d);
-          if (!fallback.ok) {
-            console.error("HubSpot form fallback failed:", fallback.error);
-            setSyncWarning(serverError);
-          }
-        } else {
-          setSyncWarning(serverError);
-        }
+        setSyncWarning(serverError);
       }
 
       generatePDF(d);

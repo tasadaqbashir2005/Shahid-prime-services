@@ -16,6 +16,8 @@ export type HubspotLeadResult =
 type Transport = {
   url: string;
   headers: Record<string, string>;
+  /** Query string (with leading "?") appended to every request — legacy hapikey auth. */
+  query: string;
 };
 
 /**
@@ -37,6 +39,21 @@ function resolveTransport(): Transport | null {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
+      query: "",
+    };
+  }
+
+  // Legacy HubSpot API key (hapikey). Only works on portals that still have a
+  // legacy key enabled — HubSpot retired these for most accounts.
+  const legacyKey =
+    process.env.HUBSPOT_LEGACY_API_KEY ??
+    process.env.HUBSPOT_HAPIKEY ??
+    process.env.HAPIKEY;
+  if (legacyKey) {
+    return {
+      url: HUBSPOT_API_URL,
+      headers: { "Content-Type": "application/json" },
+      query: `?hapikey=${encodeURIComponent(legacyKey)}`,
     };
   }
 
@@ -50,6 +67,7 @@ function resolveTransport(): Transport | null {
         "X-Connection-Api-Key": hubspotApiKey,
         "Content-Type": "application/json",
       },
+      query: "",
     };
   }
 
@@ -60,7 +78,7 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   const transport = resolveTransport();
   if (!transport) {
     const seen = Object.keys(process.env ?? {})
-      .filter((k) => /HUBSPOT|LOVABLE/i.test(k))
+      .filter((k) => /HUBSPOT|LOVABLE|HAPIKEY/i.test(k))
       .join(", ");
     console.error(
       `HubSpot is not configured on this deployment. Set HUBSPOT_ACCESS_TOKEN in the hosting environment. Related env keys visible to the server: [${seen || "none"}]`,
@@ -86,9 +104,9 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
       .join("\n"),
   };
 
-  const { url, headers } = transport;
+  const { url, headers, query } = transport;
 
-  const res = await fetch(`${url}/crm/v3/objects/contacts`, {
+  const res = await fetch(`${url}/crm/v3/objects/contacts${query}`, {
     method: "POST",
     headers,
     body: JSON.stringify({ properties }),
@@ -106,7 +124,7 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   if (res.status === 409) {
     const existingId = body.match(/Existing ID:\s*(\d+)/)?.[1];
     if (existingId) {
-      const patch = await fetch(`${url}/crm/v3/objects/contacts/${existingId}`, {
+      const patch = await fetch(`${url}/crm/v3/objects/contacts/${existingId}${query}`, {
         method: "PATCH",
         headers,
         body: JSON.stringify({ properties }),
