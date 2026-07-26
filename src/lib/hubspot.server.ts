@@ -91,7 +91,6 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   }
   const { url, headers, query } = transport;
 
-  const { url, headers, query } = transport;
 
   const [firstname, ...rest] = lead.fullName.split(/\s+/);
   const details = [
