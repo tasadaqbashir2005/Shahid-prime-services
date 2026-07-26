@@ -6,6 +6,7 @@ import { z } from "zod";
 import jsPDF from "jspdf";
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
+import { hubspotFormsEnabled, submitHubspotForm } from "@/lib/hubspot-forms";
 import { ALL_SERVICES, BRAND_NAME, CONTACT_ADDRESS, CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER, waLink } from "@/lib/site-data";
 
 
@@ -176,15 +177,26 @@ function ContactPage() {
       const d = parsed.data;
       // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
       setSyncWarning(null);
+      let serverError: string | null = null;
       try {
         const result = await sendToHubspot({ data: d });
-        if (!result.ok) {
-          console.error("HubSpot lead sync failed:", result.error);
-          setSyncWarning(result.error);
-        }
+        if (!result.ok) serverError = result.error;
       } catch (hubspotError) {
         console.error("HubSpot lead sync failed:", hubspotError);
-        setSyncWarning("CRM sync unavailable on this deployment");
+        serverError = "CRM sync unavailable on this deployment";
+      }
+      if (serverError) {
+        console.error("HubSpot lead sync failed:", serverError);
+        // Host-independent fallback: public HubSpot Forms endpoint from the browser.
+        if (hubspotFormsEnabled()) {
+          const fallback = await submitHubspotForm(d);
+          if (!fallback.ok) {
+            console.error("HubSpot form fallback failed:", fallback.error);
+            setSyncWarning(serverError);
+          }
+        } else {
+          setSyncWarning(serverError);
+        }
       }
 
       generatePDF(d);
