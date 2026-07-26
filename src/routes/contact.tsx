@@ -325,7 +325,7 @@ function ContactPage() {
                       className={inputCls}
                     >
                       <option value="">— Choose a service —</option>
-                      {ALL_SERVICES.map((s) => (
+                      {serviceOptions.map((s) => (
                         <option key={s} value={s}>
                           {s}
                         </option>
