@@ -175,12 +175,18 @@ function ContactPage() {
     try {
       const d = parsed.data;
       // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
+      setSyncWarning(null);
       try {
         const result = await sendToHubspot({ data: d });
-        if (!result.ok) console.error("HubSpot lead sync failed:", result.error);
+        if (!result.ok) {
+          console.error("HubSpot lead sync failed:", result.error);
+          setSyncWarning(result.error);
+        }
       } catch (hubspotError) {
         console.error("HubSpot lead sync failed:", hubspotError);
+        setSyncWarning("CRM sync unavailable on this deployment");
       }
+
       generatePDF(d);
       const text =
         `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
