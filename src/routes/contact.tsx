@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
-import jsPDF from "jspdf";
+
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
 import {
@@ -28,12 +28,12 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Speak with a visa consultant today. Fill our secure form to auto-generate an application PDF and start a WhatsApp conversation instantly.",
+          "Speak with a visa consultant today. Submit your inquiry and start a WhatsApp conversation with our consultants instantly.",
       },
       { property: "og:title", content: "Contact SHAHID PRIME SERVICES" },
       {
         property: "og:description",
-        content: "Auto-generate your application PDF and chat with us on WhatsApp.",
+        content: "Submit your inquiry and chat with our visa consultants on WhatsApp.",
       },
     ],
   }),
@@ -75,99 +75,6 @@ function ContactPage() {
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
-  const generatePDF = (data: FormData) => {
-    const doc = new jsPDF({ unit: "pt", format: "a4" });
-    const w = doc.internal.pageSize.getWidth();
-    const h = doc.internal.pageSize.getHeight();
-
-    // Header band
-    doc.setFillColor(11, 37, 69);
-    doc.rect(0, 0, w, 110, "F");
-    doc.setFillColor(212, 175, 55);
-    doc.rect(0, 110, w, 4, "F");
-
-    doc.setTextColor(255, 255, 255);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.text(BRAND_NAME, 40, 55);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-    doc.setTextColor(212, 175, 55);
-    doc.text("International Visa & Saudi Khidmat Services", 40, 76);
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(9);
-    doc.text(`WhatsApp: ${WHATSAPP_DISPLAY}   |   ${CONTACT_EMAIL}`, 40, 95);
-
-    // Title
-    doc.setTextColor(11, 37, 69);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text("Client Application Summary", 40, 155);
-    doc.setDrawColor(212, 175, 55);
-    doc.setLineWidth(1);
-    doc.line(40, 165, w - 40, 165);
-
-    // Date/ref
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(90, 90, 90);
-    const ref = `SPS-${Date.now().toString().slice(-8)}`;
-    doc.text(`Reference: ${ref}`, 40, 185);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, w - 40, 185, { align: "right" });
-
-    // Fields
-    const rows: [string, string][] = [
-      ["Full Name", data.fullName],
-      ["Phone Number", data.phone],
-      ["Country", data.country],
-      ["Requested Service", data.service],
-    ];
-
-    let y = 220;
-    rows.forEach(([label, value], i) => {
-      if (i % 2 === 0) {
-        doc.setFillColor(248, 249, 250);
-        doc.rect(40, y - 16, w - 80, 32, "F");
-      }
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(11, 37, 69);
-      doc.setFontSize(10);
-      doc.text(label.toUpperCase(), 52, y);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(30, 30, 30);
-      doc.setFontSize(12);
-      doc.text(value || "-", w - 52, y, { align: "right" });
-      y += 32;
-    });
-
-    // Message
-    y += 20;
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(11, 37, 69);
-    doc.setFontSize(12);
-    doc.text("Client Message", 40, y);
-    y += 12;
-    doc.setDrawColor(212, 175, 55);
-    doc.line(40, y, 140, y);
-    y += 20;
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(60, 60, 60);
-    doc.setFontSize(11);
-    const msg = data.message?.trim() || "No additional message provided.";
-    const lines = doc.splitTextToSize(msg, w - 80);
-    doc.text(lines, 40, y);
-
-    // Footer
-    doc.setFillColor(11, 37, 69);
-    doc.rect(0, h - 60, w, 60, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(9);
-    doc.text(`© ${new Date().getFullYear()} ${BRAND_NAME} — ${CONTACT_ADDRESS}`, 40, h - 35);
-    doc.setTextColor(212, 175, 55);
-    doc.text("Thank you for choosing us. Our team will contact you shortly.", 40, h - 18);
-
-    doc.save(`${BRAND_NAME.replace(/\s+/g, "_")}_${ref}.pdf`);
-  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -200,15 +107,13 @@ function ContactPage() {
         setSyncWarning(serverError);
       }
 
-      generatePDF(d);
       const text =
-        `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
+        `*NEW CLIENT INQUIRY — ${BRAND_NAME}*\n\n` +
         `*Name:* ${d.fullName}\n` +
         `*Phone:* ${d.phone}\n` +
         `*Country:* ${d.country}\n` +
         `*Requested Service:* ${d.service}\n` +
-        `*Message:* ${d.message?.trim() || "—"}\n\n` +
-        `A branded PDF summary has been generated on the client's device and will be attached to this chat.`;
+        `*Message:* ${d.message?.trim() || "—"}`;
       // Cross-platform WhatsApp handoff (mobile uses api.whatsapp.com deep link)
       const isMobile =
         typeof window !== "undefined" &&
@@ -256,8 +161,8 @@ function ContactPage() {
             <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#D4AF37]" />
           </div>
           <p className="mx-auto mt-5 max-w-2xl text-white/75">
-            Fill the form to auto-generate your application PDF and start a WhatsApp conversation
-            with our consultants instantly.
+            Fill the form to submit your inquiry and start a WhatsApp conversation with our
+            consultants instantly.
           </p>
         </div>
       </section>
@@ -358,10 +263,10 @@ function ContactPage() {
                 <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
                   <div>
-                    <div className="font-semibold">Message sent — WhatsApp is opening!</div>
+                    <div className="font-semibold">Inquiry sent — WhatsApp is opening!</div>
                     <div className="mt-0.5 text-emerald-700/80">
-                      Your details have been packaged into a branded PDF and sent to our WhatsApp
-                      with your phone number attached. Our consultant will reply shortly.
+                      Your details have been sent to our WhatsApp with your phone number attached.
+                      Our consultant will reply shortly.
                     </div>
                   </div>
                 </div>
@@ -439,10 +344,10 @@ function ContactPage() {
                 ) : (
                   <Send className="h-4 w-4" />
                 )}
-                {submitting ? "Preparing your application..." : "Generate PDF & Send on WhatsApp"}
+                {submitting ? "Submitting..." : "Submit Inquiry"}
               </button>
               <p className="mt-3 text-center text-xs text-slate-500">
-                Your details are used only to prepare your application. We respect your privacy.
+                Your details are used only to process your inquiry. We respect your privacy.
               </p>
             </div>
           </form>
