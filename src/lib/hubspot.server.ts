@@ -211,6 +211,7 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
 
   if (created.res.ok) {
     const json = (await created.res.json()) as { id?: string };
+    if (json.id) await attachNote(json.id);
     return { ok: true, id: json.id ?? null };
   }
 
@@ -225,11 +226,15 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
         "PATCH",
         created.props,
       );
-      if (patched.res.ok) return { ok: true, id: existingId };
+      if (patched.res.ok) {
+        await attachNote(existingId);
+        return { ok: true, id: existingId };
+      }
       console.error(`HubSpot contact update failed [${patched.res.status}]: ${patched.body}`);
       return { ok: false, error: `HubSpot update failed (${patched.res.status})` };
     }
   }
+
 
   return { ok: false, error: `HubSpot request failed (${created.res.status})` };
 }
