@@ -305,11 +305,16 @@ function ContactPage() {
                 </Field>
                 <Field label="Phone Number" error={errors.phone}>
                   <input
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
-                    placeholder="+92 300 0000000"
+                    onBlur={normalizePhoneField}
+                    placeholder="03114811886 or +923114811886"
                     className={inputCls}
                   />
+
                 </Field>
                 <Field label="Country" error={errors.country}>
                   <input
