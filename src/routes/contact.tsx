@@ -1,10 +1,13 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import jsPDF from "jspdf";
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { submitHubspotLead } from "@/lib/hubspot.functions";
 import { ALL_SERVICES, BRAND_NAME, CONTACT_ADDRESS, CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER, waLink } from "@/lib/site-data";
+
 
 const searchSchema = z.object({
   service: z.string().optional().catch(undefined),
@@ -51,6 +54,8 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const sendToHubspot = useServerFn(submitHubspotLead);
+
 
   const update = <K extends keyof FormData>(k: K, v: FormData[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
@@ -166,10 +171,18 @@ function ContactPage() {
     }
     setSubmitting(true);
     try {
-      generatePDF(parsed.data);
       const d = parsed.data;
+      // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
+      try {
+        const result = await sendToHubspot({ data: d });
+        if (!result.ok) console.error("HubSpot lead sync failed:", result.error);
+      } catch (hubspotError) {
+        console.error("HubSpot lead sync failed:", hubspotError);
+      }
+      generatePDF(d);
       const text =
         `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
+
         `*Name:* ${d.fullName}\n` +
         `*Phone:* ${d.phone}\n` +
         `*Country:* ${d.country}\n` +
