@@ -89,52 +89,97 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
       error: `HubSpot token missing on server (env keys seen: ${seen || "none"}; total env vars: ${Object.keys(process.env ?? {}).length})`,
     };
   }
-
+  const { url, headers, query } = transport;
 
   const [firstname, ...rest] = lead.fullName.split(/\s+/);
+  const details = [
+    `Full Name: ${lead.fullName}`,
+    `Phone: ${lead.phone}`,
+    `Country: ${lead.country}`,
+    `Requested Service: ${lead.service}`,
+    `Message: ${lead.message?.trim() || "—"}`,
+  ].join("\n");
+
+  // Full property set. `message` is the standard HubSpot contact property used by
+  // forms; `service_requested` / `description` may not exist on every portal, so
+  // invalid ones are dropped automatically on retry (see sendProperties below).
   const properties: Record<string, string> = {
     firstname,
     lastname: rest.join(" ") || "-",
     phone: lead.phone,
     country: lead.country,
-    message: [
-      `Requested Service: ${lead.service}`,
-      lead.message?.trim() ? `Message: ${lead.message.trim()}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n"),
+    service_requested: lead.service,
+    message: details,
+    description: details,
   };
 
-  const { url, headers, query } = transport;
+  /**
+   * POST/PATCH properties, and if HubSpot rejects a property that doesn't exist
+   * in the portal, drop just that property and retry (max 5 passes). Guarantees
+   * Country + Service + Message land in whichever fields the portal supports.
+   */
+  async function sendProperties(
+    target: string,
+    method: "POST" | "PATCH",
+    props: Record<string, string>,
+  ): Promise<{ res: Response; body: string; props: Record<string, string> }> {
+    let current = { ...props };
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const res = await fetch(target, {
+        method,
+        headers,
+        body: JSON.stringify({ properties: current }),
+      });
+      if (res.ok) return { res, body: "", props: current };
+      const body = await res.text();
 
-  const res = await fetch(`${url}/crm/v3/objects/contacts${query}`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ properties }),
-  });
-
-  if (res.ok) {
-    const created = (await res.json()) as { id?: string };
-    return { ok: true, id: created.id ?? null };
+      // "Property \"service_requested\" does not exist" / PROPERTY_DOESNT_EXIST
+      const invalid = new Set<string>();
+      for (const m of body.matchAll(/"([A-Za-z0-9_]+)"\s*(?:does not exist|is not a valid)/g)) {
+        invalid.add(m[1]);
+      }
+      for (const m of body.matchAll(/Property\s+"?([A-Za-z0-9_]+)"?\s+does not exist/gi)) {
+        invalid.add(m[1]);
+      }
+      const droppable = [...invalid].filter((k) => k in current && !["firstname", "lastname", "phone"].includes(k));
+      if (res.status === 400 && droppable.length > 0) {
+        console.error(`HubSpot rejected unknown properties, retrying without: ${droppable.join(", ")}`);
+        droppable.forEach((k) => delete current[k]);
+        continue;
+      }
+      return { res, body, props: current };
+    }
+    return {
+      res: new Response(null, { status: 400 }),
+      body: "Exhausted property retries",
+      props: current,
+    };
   }
 
-  const body = await res.text();
-  console.error(`HubSpot contact create failed [${res.status}]: ${body}`);
+  const created = await sendProperties(`${url}/crm/v3/objects/contacts${query}`, "POST", properties);
+
+  if (created.res.ok) {
+    const json = (await created.res.json()) as { id?: string };
+    return { ok: true, id: json.id ?? null };
+  }
+
+  console.error(`HubSpot contact create failed [${created.res.status}]: ${created.body}`);
 
   // Duplicate contact -> update the existing record instead of failing the lead.
-  if (res.status === 409) {
-    const existingId = body.match(/Existing ID:\s*(\d+)/)?.[1];
+  if (created.res.status === 409) {
+    const existingId = created.body.match(/Existing ID:\s*(\d+)/)?.[1];
     if (existingId) {
-      const patch = await fetch(`${url}/crm/v3/objects/contacts/${existingId}${query}`, {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({ properties }),
-      });
-      if (patch.ok) return { ok: true, id: existingId };
-      console.error(`HubSpot contact update failed [${patch.status}]: ${await patch.text()}`);
-      return { ok: false, error: `HubSpot update failed (${patch.status})` };
+      const patched = await sendProperties(
+        `${url}/crm/v3/objects/contacts/${existingId}${query}`,
+        "PATCH",
+        created.props,
+      );
+      if (patched.res.ok) return { ok: true, id: existingId };
+      console.error(`HubSpot contact update failed [${patched.res.status}]: ${patched.body}`);
+      return { ok: false, error: `HubSpot update failed (${patched.res.status})` };
     }
   }
 
-  return { ok: false, error: `HubSpot request failed (${res.status})` };
+  return { ok: false, error: `HubSpot request failed (${created.res.status})` };
 }
+
