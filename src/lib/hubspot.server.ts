@@ -30,6 +30,7 @@ type Transport = {
 function resolveTransport(): Transport | null {
   const token =
     process.env.HUBSPOT_ACCESS_TOKEN ??
+    process.env.HUPSPOT_ACCESS_TOKEN ??
     process.env.HUBSPOT_PRIVATE_APP_TOKEN ??
     process.env.HUBSPOT_TOKEN;
   if (token) {
