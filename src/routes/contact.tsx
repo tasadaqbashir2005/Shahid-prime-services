@@ -6,6 +6,7 @@ import { z } from "zod";
 import jsPDF from "jspdf";
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
+import { hubspotFormsEnabled, submitHubspotForm } from "@/lib/hubspot-forms";
 import { ALL_SERVICES, BRAND_NAME, CONTACT_ADDRESS, CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER, waLink } from "@/lib/site-data";
 
 
