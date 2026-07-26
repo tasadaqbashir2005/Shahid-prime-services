@@ -54,7 +54,9 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [syncWarning, setSyncWarning] = useState<string | null>(null);
   const sendToHubspot = useServerFn(submitHubspotLead);
+
 
 
   const update = <K extends keyof FormData>(k: K, v: FormData[K]) => {
@@ -173,12 +175,18 @@ function ContactPage() {
     try {
       const d = parsed.data;
       // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
+      setSyncWarning(null);
       try {
         const result = await sendToHubspot({ data: d });
-        if (!result.ok) console.error("HubSpot lead sync failed:", result.error);
+        if (!result.ok) {
+          console.error("HubSpot lead sync failed:", result.error);
+          setSyncWarning(result.error);
+        }
       } catch (hubspotError) {
         console.error("HubSpot lead sync failed:", hubspotError);
+        setSyncWarning("CRM sync unavailable on this deployment");
       }
+
       generatePDF(d);
       const text =
         `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
@@ -294,6 +302,13 @@ function ContactPage() {
                 </div>
               </div>
             )}
+
+            {syncWarning && (
+              <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+                <span className="font-semibold">CRM sync notice:</span> {syncWarning}. Your WhatsApp message and PDF were still generated.
+              </div>
+            )}
+
 
 
             <div className="grid gap-5 sm:grid-cols-2">
