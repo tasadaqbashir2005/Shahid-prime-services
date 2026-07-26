@@ -105,20 +105,7 @@ function ContactPage() {
     setSubmitting(true);
     try {
       const d = parsed.data;
-      // Push the lead into HubSpot (non-blocking for the user's WhatsApp flow)
       setSyncWarning(null);
-      let serverError: string | null = null;
-      try {
-        const result = await sendToHubspot({ data: d });
-        if (!result.ok) serverError = result.error;
-      } catch (hubspotError) {
-        console.error("HubSpot lead sync failed:", hubspotError);
-        serverError = "CRM sync unavailable on this deployment";
-      }
-      if (serverError) {
-        console.error("HubSpot lead sync failed:", serverError);
-        setSyncWarning(serverError);
-      }
 
       const text =
         `*NEW CLIENT INQUIRY — ${BRAND_NAME}*\n\n` +
@@ -134,8 +121,26 @@ function ContactPage() {
       const url = isMobile
         ? `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`
         : waLink(text);
-      window.open(url, "_blank", "noopener,noreferrer");
+
+      // Open WhatsApp synchronously inside the click gesture so popup blockers
+      // don't stop it. Any awaited work before this would break the handoff.
+      const win = window.open(url, "_blank", "noopener,noreferrer");
+      if (!win) window.location.href = url;
       setDone(true);
+
+      // Push the lead into HubSpot in the background (never blocks WhatsApp)
+      void (async () => {
+        try {
+          const result = await sendToHubspot({ data: d });
+          if (!result.ok) {
+            console.error("HubSpot lead sync failed:", result.error);
+            setSyncWarning(result.error);
+          }
+        } catch (hubspotError) {
+          console.error("HubSpot lead sync failed:", hubspotError);
+          setSyncWarning("CRM sync unavailable on this deployment");
+        }
+      })();
     } catch (err) {
       console.error(err);
       setErrors((prev) => ({
@@ -146,6 +151,7 @@ function ContactPage() {
       setSubmitting(false);
     }
   };
+
 
   return (
     <div className="relative bg-slate-50">
