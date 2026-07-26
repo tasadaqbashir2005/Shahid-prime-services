@@ -105,13 +105,49 @@ export function resolveCountry(country?: string | null): CountryCode | undefined
 }
 
 /**
- * Normalize any phone input into E.164.
+ * Deterministic mobile rules per market.
+ *
+ * `nsn` = national significant number (trunk "0" already stripped).
+ * These run BEFORE the generic libphonenumber guessing so that e.g. a Saudi
+ * number can never be mistaken for a Pakistani one.
+ */
+const MOBILE_RULES: { country: CountryCode; cc: string; nsn: RegExp }[] = [
+  { country: "SA", cc: "966", nsn: /^5\d{8}$/ }, // +966 5XXXXXXXX
+  { country: "AE", cc: "971", nsn: /^5\d{8}$/ }, // +971 5XXXXXXXX
+  { country: "PK", cc: "92", nsn: /^3\d{9}$/ }, // +92 3XXXXXXXXX
+  { country: "IN", cc: "91", nsn: /^[6-9]\d{9}$/ }, // +91 [6-9]XXXXXXXXX
+  { country: "BD", cc: "880", nsn: /^1[3-9]\d{8}$/ }, // +880 1XXXXXXXXX
+  { country: "QA", cc: "974", nsn: /^[3567]\d{7}$/ },
+  { country: "KW", cc: "965", nsn: /^[569]\d{7}$/ },
+  { country: "BH", cc: "973", nsn: /^[3]\d{7}$/ },
+  { country: "OM", cc: "968", nsn: /^[79]\d{7}$/ },
+  { country: "GB", cc: "44", nsn: /^7\d{9}$/ },
+  { country: "US", cc: "1", nsn: /^[2-9]\d{9}$/ },
+  { country: "CA", cc: "1", nsn: /^[2-9]\d{9}$/ },
+];
+
+/** Older UAE/Saudi style numbers sometimes come as 9 digits with no trunk 0. */
+function buildResult(e164: string): PhoneNormalizationResult {
+  const parsed = parsePhoneNumberFromString(e164);
+  if (!parsed?.isValid()) return { valid: false, error: INVALID_PHONE_MESSAGE };
+  return {
+    valid: true,
+    e164: parsed.number,
+    whatsapp: parsed.number.replace(/\D/g, ""),
+    international: parsed.formatInternational(),
+    country: parsed.country,
+  };
+}
+
+/**
+ * Normalize any phone input into E.164 (the only format WhatsApp Business API
+ * and HubSpot ever receive).
  *
  * Detection order:
- *  1. Explicit "+" prefix (kept as-is, only validated)
- *  2. "00" international prefix
- *  3. The country selected/typed by the user
- *  4. Pattern match against candidate countries
+ *  1. Explicit "+" / "00" international prefix
+ *  2. Digits already carrying a country calling code (e.g. 966566726277)
+ *  3. Explicit per-country mobile rules, preferring the country the user typed
+ *  4. libphonenumber pattern match against candidate countries
  *  5. DEFAULT_COUNTRY fallback (Pakistan)
  */
 export function normalizePhone(
@@ -122,33 +158,53 @@ export function normalizePhone(
   if (!input) return { valid: false, error: INVALID_PHONE_MESSAGE };
 
   const cleaned = cleanPhoneInput(input);
-  const digits = cleaned.replace(/\D/g, "");
+  let digits = cleaned.replace(/\D/g, "");
   if (digits.length < 6) return { valid: false, error: INVALID_PHONE_MESSAGE };
   // Reject placeholder junk like 000000 / 999999 / 1111111.
   if (/^(\d)\1+$/.test(digits)) return { valid: false, error: INVALID_PHONE_MESSAGE };
 
   const selected = resolveCountry(options.country);
   const fallback = options.defaultCountry ?? DEFAULT_COUNTRY;
+  const hasIntlPrefix = cleaned.startsWith("+") || digits.startsWith("00");
+  if (digits.startsWith("00")) digits = digits.slice(2);
 
-  /** Ordered list of candidate strings to hand to libphonenumber. */
-  const attempts: { value: string; country?: CountryCode }[] = [];
+  // 1 + 2 — international form: trust the country calling code as written.
+  if (hasIntlPrefix) {
+    const direct = buildResult(`+${digits}`);
+    if (direct.valid) return direct;
+  }
 
-  if (cleaned.startsWith("+")) {
-    attempts.push({ value: cleaned });
-  } else if (digits.startsWith("00")) {
-    attempts.push({ value: `+${digits.slice(2)}` });
-  } else if (digits.startsWith("0")) {
-    // Local format with a national trunk "0" (e.g. 0567262777, 03114811886).
-    // Never treat these as a country calling code — strip "0" per country rules.
-    for (const c of [selected, ...CANDIDATE_COUNTRIES, fallback]) {
-      if (c) attempts.push({ value: digits, country: c });
+  /** Rules ordered so the country the visitor typed always wins. */
+  const rules = selected
+    ? [...MOBILE_RULES.filter((r) => r.country === selected), ...MOBILE_RULES]
+    : MOBILE_RULES;
+
+  if (!hasIntlPrefix) {
+    // 2 — digits already prefixed with a calling code, no "+" (966566726277).
+    for (const rule of rules) {
+      if (digits.startsWith(rule.cc) && rule.nsn.test(digits.slice(rule.cc.length))) {
+        const result = buildResult(`+${digits}`);
+        if (result.valid) return result;
+      }
     }
-  } else {
-    // National number for the country the user told us about.
-    if (selected) attempts.push({ value: digits, country: selected });
-    // Already carries a country calling code without "+" (e.g. 923114811886).
+
+    // 3 — local format, with or without the national trunk "0".
+    const nsn = digits.replace(/^0+/, "");
+    for (const rule of rules) {
+      if (rule.nsn.test(nsn)) {
+        const result = buildResult(`+${rule.cc}${nsn}`);
+        if (result.valid) return result;
+      }
+    }
+  }
+
+  // 4 — generic libphonenumber fallback for every other country.
+  const attempts: { value: string; country?: CountryCode }[] = [];
+  if (hasIntlPrefix) {
     attempts.push({ value: `+${digits}` });
-    // Local format for each supported market, then the default fallback.
+  } else {
+    if (selected) attempts.push({ value: digits, country: selected });
+    if (!digits.startsWith("0")) attempts.push({ value: `+${digits}` });
     for (const c of [selected, ...CANDIDATE_COUNTRIES, fallback]) {
       if (c) attempts.push({ value: digits, country: c });
     }
