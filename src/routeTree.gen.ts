@@ -9,50 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as ServicesAirlineTicketingRouteImport } from './routes/services_.airline-ticketing'
-import { Route as ServicesCrProviderRouteImport } from './routes/services_.cr-provider'
-import { Route as ServicesSaudiKhidmatRouteImport } from './routes/services_.saudi-khidmat'
-import { Route as ServicesStudyVisaRouteImport } from './routes/services_.study-visa'
-import { Route as ServicesUmrahRouteImport } from './routes/services_.umrah'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesVisitVisaRouteImport } from './routes/services_.visit-visa'
+import { Route as ServicesUmrahRouteImport } from './routes/services_.umrah'
+import { Route as ServicesStudyVisaRouteImport } from './routes/services_.study-visa'
+import { Route as ServicesSaudiKhidmatRouteImport } from './routes/services_.saudi-khidmat'
+import { Route as ServicesCrProviderRouteImport } from './routes/services_.cr-provider'
+import { Route as ServicesAirlineTicketingRouteImport } from './routes/services_.airline-ticketing'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -60,35 +35,39 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
-} as any)
-const ServicesAirlineTicketingRoute =
-  ServicesAirlineTicketingRouteImport.update({
-    id: '/services_/airline-ticketing',
-    path: '/services/airline-ticketing',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ServicesCrProviderRoute = ServicesCrProviderRouteImport.update({
-  id: '/services_/cr-provider',
-  path: '/services/cr-provider',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesSaudiKhidmatRoute = ServicesSaudiKhidmatRouteImport.update({
-  id: '/services_/saudi-khidmat',
-  path: '/services/saudi-khidmat',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesStudyVisaRoute = ServicesStudyVisaRouteImport.update({
-  id: '/services_/study-visa',
-  path: '/services/study-visa',
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesVisitVisaRoute = ServicesVisitVisaRouteImport.update({
+  id: '/services_/visit-visa',
+  path: '/services/visit-visa',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesUmrahRoute = ServicesUmrahRouteImport.update({
@@ -96,10 +75,31 @@ const ServicesUmrahRoute = ServicesUmrahRouteImport.update({
   path: '/services/umrah',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesVisitVisaRoute = ServicesVisitVisaRouteImport.update({
-  id: '/services_/visit-visa',
-  path: '/services/visit-visa',
+const ServicesStudyVisaRoute = ServicesStudyVisaRouteImport.update({
+  id: '/services_/study-visa',
+  path: '/services/study-visa',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSaudiKhidmatRoute = ServicesSaudiKhidmatRouteImport.update({
+  id: '/services_/saudi-khidmat',
+  path: '/services/saudi-khidmat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesCrProviderRoute = ServicesCrProviderRouteImport.update({
+  id: '/services_/cr-provider',
+  path: '/services/cr-provider',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAirlineTicketingRoute =
+  ServicesAirlineTicketingRouteImport.update({
+    id: '/services_/airline-ticketing',
+    path: '/services/airline-ticketing',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -227,46 +227,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -276,46 +241,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/services_/airline-ticketing': {
-      id: '/services_/airline-ticketing'
-      path: '/services/airline-ticketing'
-      fullPath: '/services/airline-ticketing'
-      preLoaderRoute: typeof ServicesAirlineTicketingRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services_/cr-provider': {
-      id: '/services_/cr-provider'
-      path: '/services/cr-provider'
-      fullPath: '/services/cr-provider'
-      preLoaderRoute: typeof ServicesCrProviderRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services_/saudi-khidmat': {
-      id: '/services_/saudi-khidmat'
-      path: '/services/saudi-khidmat'
-      fullPath: '/services/saudi-khidmat'
-      preLoaderRoute: typeof ServicesSaudiKhidmatRouteImport
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services_/study-visa': {
-      id: '/services_/study-visa'
-      path: '/services/study-visa'
-      fullPath: '/services/study-visa'
-      preLoaderRoute: typeof ServicesStudyVisaRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/visit-visa': {
+      id: '/services_/visit-visa'
+      path: '/services/visit-visa'
+      fullPath: '/services/visit-visa'
+      preLoaderRoute: typeof ServicesVisitVisaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services_/umrah': {
@@ -325,12 +297,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesUmrahRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services_/visit-visa': {
-      id: '/services_/visit-visa'
-      path: '/services/visit-visa'
-      fullPath: '/services/visit-visa'
-      preLoaderRoute: typeof ServicesVisitVisaRouteImport
+    '/services_/study-visa': {
+      id: '/services_/study-visa'
+      path: '/services/study-visa'
+      fullPath: '/services/study-visa'
+      preLoaderRoute: typeof ServicesStudyVisaRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/services_/saudi-khidmat': {
+      id: '/services_/saudi-khidmat'
+      path: '/services/saudi-khidmat'
+      fullPath: '/services/saudi-khidmat'
+      preLoaderRoute: typeof ServicesSaudiKhidmatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/cr-provider': {
+      id: '/services_/cr-provider'
+      path: '/services/cr-provider'
+      fullPath: '/services/cr-provider'
+      preLoaderRoute: typeof ServicesCrProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/airline-ticketing': {
+      id: '/services_/airline-ticketing'
+      path: '/services/airline-ticketing'
+      fullPath: '/services/airline-ticketing'
+      preLoaderRoute: typeof ServicesAirlineTicketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
     }
   }
 }
@@ -364,13 +364,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
