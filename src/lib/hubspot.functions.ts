@@ -2,17 +2,24 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 import { createHubspotContact } from "./hubspot.server";
+import { INVALID_PHONE_MESSAGE, normalizePhone } from "./phone";
 
 export const submitHubspotLead = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) =>
-    z
+  .inputValidator((data: unknown) => {
+    const parsed = z
       .object({
         fullName: z.string().trim().min(2).max(100),
-        phone: z.string().trim().min(7).max(20),
+        phone: z.string().trim().min(6).max(30),
         country: z.string().trim().min(2).max(60),
         service: z.string().trim().min(2).max(120),
         message: z.string().trim().max(1000).optional().default(""),
       })
-      .parse(data),
-  )
+      .parse(data);
+
+    // Never trust client-side formatting: re-normalize server-side.
+    const phone = normalizePhone(parsed.phone, { country: parsed.country });
+    if (!phone.valid) throw new Error(INVALID_PHONE_MESSAGE);
+    return { ...parsed, phone: phone.e164 };
+  })
   .handler(async ({ data }) => createHubspotContact(data));
+

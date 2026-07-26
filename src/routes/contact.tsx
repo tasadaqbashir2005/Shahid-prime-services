@@ -6,6 +6,7 @@ import { z } from "zod";
 
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
+import { INVALID_PHONE_MESSAGE, normalizePhone } from "@/lib/phone";
 import {
   ALL_SERVICES,
   CONTACT_ADDRESS,
@@ -41,16 +42,12 @@ export const Route = createFileRoute("/contact")({
 
 const formSchema = z.object({
   fullName: z.string().trim().min(2, "Please enter your full name").max(100),
-  phone: z
-    .string()
-    .trim()
-    .min(7, "Enter a valid phone number")
-    .max(20)
-    .regex(/^[+\d][\d\s\-()]{6,19}$/, "Enter a valid phone number (digits, spaces, dashes only)"),
+  phone: z.string().trim().min(1, INVALID_PHONE_MESSAGE).max(30),
   country: z.string().trim().min(2, "Enter your country").max(60),
   service: z.string().trim().min(2, "Select a service").max(120),
   message: z.string().trim().max(1000).optional().default(""),
 });
+
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -86,6 +83,20 @@ function ContactPage() {
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
+  /**
+   * Normalize the typed number to E.164 as soon as the field loses focus so the
+   * visitor sees the final stored value (e.g. 03114811886 -> +92 311 4811886).
+   */
+  const normalizePhoneField = () => {
+    if (!form.phone.trim()) return;
+    const result = normalizePhone(form.phone, { country: form.country });
+    if (result.valid) {
+      setForm((f) => ({ ...f, phone: result.e164 }));
+      setErrors((e) => ({ ...e, phone: undefined }));
+    } else {
+      setErrors((e) => ({ ...e, phone: result.error }));
+    }
+  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -100,12 +111,22 @@ function ContactPage() {
       setErrors(errs);
       return;
     }
+    // Phone must be a valid, normalized E.164 number before anything is sent.
+    const phoneResult = normalizePhone(parsed.data.phone, { country: parsed.data.country });
+    if (!phoneResult.valid) {
+      setErrors((prev) => ({ ...prev, phone: phoneResult.error }));
+      setForm((f) => ({ ...f, phone: f.phone }));
+      return;
+    }
+    setForm((f) => ({ ...f, phone: phoneResult.e164 }));
     setSubmitting(true);
     try {
-      const d = parsed.data;
+      // Never send raw input downstream — always the E.164 value.
+      const d = { ...parsed.data, phone: phoneResult.e164 };
 
       const result = await sendToHubspot({ data: d });
       if (!result.ok) {
+
         console.error("HubSpot lead sync failed:", result.error);
       }
 
@@ -284,11 +305,16 @@ function ContactPage() {
                 </Field>
                 <Field label="Phone Number" error={errors.phone}>
                   <input
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
-                    placeholder="+92 300 0000000"
+                    onBlur={normalizePhoneField}
+                    placeholder="03114811886 or +923114811886"
                     className={inputCls}
                   />
+
                 </Field>
                 <Field label="Country" error={errors.country}>
                   <input
