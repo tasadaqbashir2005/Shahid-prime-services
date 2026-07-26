@@ -83,6 +83,20 @@ function ContactPage() {
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
+  /**
+   * Normalize the typed number to E.164 as soon as the field loses focus so the
+   * visitor sees the final stored value (e.g. 03114811886 -> +92 311 4811886).
+   */
+  const normalizePhoneField = () => {
+    if (!form.phone.trim()) return;
+    const result = normalizePhone(form.phone, { country: form.country });
+    if (result.valid) {
+      setForm((f) => ({ ...f, phone: result.e164 }));
+      setErrors((e) => ({ ...e, phone: undefined }));
+    } else {
+      setErrors((e) => ({ ...e, phone: result.error }));
+    }
+  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -97,12 +111,22 @@ function ContactPage() {
       setErrors(errs);
       return;
     }
+    // Phone must be a valid, normalized E.164 number before anything is sent.
+    const phoneResult = normalizePhone(parsed.data.phone, { country: parsed.data.country });
+    if (!phoneResult.valid) {
+      setErrors((prev) => ({ ...prev, phone: phoneResult.error }));
+      setForm((f) => ({ ...f, phone: f.phone }));
+      return;
+    }
+    setForm((f) => ({ ...f, phone: phoneResult.e164 }));
     setSubmitting(true);
     try {
-      const d = parsed.data;
+      // Never send raw input downstream — always the E.164 value.
+      const d = { ...parsed.data, phone: phoneResult.e164 };
 
       const result = await sendToHubspot({ data: d });
       if (!result.ok) {
+
         console.error("HubSpot lead sync failed:", result.error);
       }
 
