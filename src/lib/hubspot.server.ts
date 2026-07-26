@@ -104,6 +104,8 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   // Which contact properties actually exist in this portal? Sending an unknown
   // property makes HubSpot reject the whole request with 400, so we only send
   // fields the portal really has and fold the rest into a note.
+  type PortalProp = { name: string; label: string; type?: string; fieldType?: string; readOnly?: boolean };
+  const portalProps: PortalProp[] = [];
   const existing = new Set<string>();
   try {
     const propsRes = await fetch(
@@ -111,8 +113,20 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
       { method: "GET", headers },
     );
     if (propsRes.ok) {
-      const json = (await propsRes.json()) as { results?: { name?: string }[] };
-      json.results?.forEach((p) => p.name && existing.add(p.name));
+      const json = (await propsRes.json()) as {
+        results?: { name?: string; label?: string; type?: string; fieldType?: string; modificationMetadata?: { readOnlyValue?: boolean } }[];
+      };
+      json.results?.forEach((p) => {
+        if (!p.name) return;
+        existing.add(p.name);
+        portalProps.push({
+          name: p.name,
+          label: p.label ?? "",
+          type: p.type,
+          fieldType: p.fieldType,
+          readOnly: p.modificationMetadata?.readOnlyValue === true,
+        });
+      });
     } else {
       console.error(`HubSpot property list failed [${propsRes.status}]: ${await propsRes.text()}`);
     }
@@ -121,6 +135,36 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   }
   const has = (name: string) => existing.size === 0 || existing.has(name);
 
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  /**
+   * Resolve a portal field by internal name OR by its visible label, so custom
+   * columns the user created in HubSpot ("Selected services", "Description")
+   * are found even when their internal name differs from our guess.
+   */
+  const findField = (candidates: string[]) => {
+    const wanted = candidates.map(norm);
+    // exact internal-name match first
+    for (const c of candidates) {
+      const p = portalProps.find((x) => x.name === c && !x.readOnly);
+      if (p) return p.name;
+    }
+    // then normalized name / label match
+    for (const w of wanted) {
+      const p = portalProps.find(
+        (x) => !x.readOnly && (norm(x.name) === w || norm(x.label) === w),
+      );
+      if (p) return p.name;
+    }
+    // finally a contains match on the label
+    for (const w of wanted) {
+      const p = portalProps.find(
+        (x) => !x.readOnly && (norm(x.label).includes(w) || norm(x.name).includes(w)),
+      );
+      if (p) return p.name;
+    }
+    return undefined;
+  };
+
   const properties: Record<string, string> = {
     firstname,
     lastname: rest.join(" ") || "-",
@@ -128,13 +172,27 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   };
   if (has("country")) properties.country = lead.country;
 
-  // Service goes into a dedicated field when one exists.
-  const serviceField = ["service_requested", "requested_service", "service"].find((f) => existing.has(f));
+  // Service goes into a dedicated field when one exists (matched by name or label).
+  const serviceField = findField([
+    "selected_services",
+    "selected_service",
+    "service_requested",
+    "requested_service",
+    "services",
+    "service",
+  ]);
   if (serviceField) properties[serviceField] = lead.service;
 
-  // Full details go into the first available long-text field.
-  const notesField = ["message", "description", "hs_content_membership_notes"].find((f) => existing.has(f));
-  if (notesField) properties[notesField] = details;
+  // Message/Description goes into the first matching long-text field.
+  const notesField = findField(["description", "message", "notes", "comments"]);
+  if (notesField && notesField !== serviceField) {
+    properties[notesField] = lead.message?.trim() ? lead.message.trim() : details;
+  }
+
+  console.log(
+    `HubSpot field mapping -> service: ${serviceField ?? "none"}, description: ${notesField ?? "none"} (portal props: ${portalProps.length})`,
+  );
+
 
   /**
    * POST/PATCH properties; if HubSpot still rejects a property, drop it and retry.
