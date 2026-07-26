@@ -21,7 +21,20 @@ export const DEFAULT_COUNTRY: CountryCode = "PK";
  * Countries we try (in order) when the input has no explicit country code.
  * Ordered by the audience of this site.
  */
-const CANDIDATE_COUNTRIES: CountryCode[] = ["PK", "SA", "AE", "GB", "US", "CA"];
+const CANDIDATE_COUNTRIES: CountryCode[] = [
+  "SA",
+  "PK",
+  "AE",
+  "IN",
+  "BD",
+  "QA",
+  "KW",
+  "BH",
+  "OM",
+  "GB",
+  "US",
+  "CA",
+];
 
 /** Loose name/code -> ISO country code map for the free-text country field. */
 const COUNTRY_NAME_TO_ISO: Record<string, CountryCode> = {
@@ -124,6 +137,12 @@ export function normalizePhone(
     attempts.push({ value: cleaned });
   } else if (digits.startsWith("00")) {
     attempts.push({ value: `+${digits.slice(2)}` });
+  } else if (digits.startsWith("0")) {
+    // Local format with a national trunk "0" (e.g. 0567262777, 03114811886).
+    // Never treat these as a country calling code — strip "0" per country rules.
+    for (const c of [selected, ...CANDIDATE_COUNTRIES, fallback]) {
+      if (c) attempts.push({ value: digits, country: c });
+    }
   } else {
     // National number for the country the user told us about.
     if (selected) attempts.push({ value: digits, country: selected });
