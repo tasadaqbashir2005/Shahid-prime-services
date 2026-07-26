@@ -7,21 +7,30 @@ export const Route = createFileRoute("/services_/visit-visa")({
   head: () => ({
     meta: [
       { title: "Visit Visa — Schengen, Global & Work Permits | SHAHID PRIME" },
-      { name: "description", content: "Apply for Schengen, global visit visas, and work permits with high approval rates and full documentation support." },
+      {
+        name: "description",
+        content:
+          "Apply for Schengen, global visit visas, and work permits with high approval rates and full documentation support.",
+      },
       { property: "og:title", content: "Visit Visa Services — SHAHID PRIME" },
-      { property: "og:description", content: "Schengen, global destinations and work permit programs." },
+      {
+        property: "og:description",
+        content: "Schengen, global destinations and work permit programs.",
+      },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "Visit Visa Services",
-        description: "Schengen, global visit visas and work permits with high approval rates.",
-        provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
-        areaServed: "Worldwide",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Visit Visa Services",
+          description: "Schengen, global visit visas and work permits with high approval rates.",
+          provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
+          areaServed: "Worldwide",
+        }),
+      },
+    ],
   }),
   component: () => (
     <SubServicePage
@@ -34,17 +43,29 @@ export const Route = createFileRoute("/services_/visit-visa")({
         {
           title: "Schengen Visit Visa",
           subtitle: "One visa — access 29 European countries",
-          items: SCHENGEN_COUNTRIES.map((c) => ({ title: c, subtitle: "Schengen", service: `Schengen Visit Visa — ${c}` })),
+          items: SCHENGEN_COUNTRIES.map((c) => ({
+            title: c,
+            subtitle: "Schengen",
+            service: `Schengen Visit Visa — ${c}`,
+          })),
         },
         {
           title: "Global Visit Visa",
           subtitle: "Popular destinations worldwide",
-          items: GLOBAL_COUNTRIES.map((c) => ({ title: c, subtitle: "Global", service: `Global Visit Visa — ${c}` })),
+          items: GLOBAL_COUNTRIES.map((c) => ({
+            title: c,
+            subtitle: "Global",
+            service: `Global Visit Visa — ${c}`,
+          })),
         },
         {
           title: "Work Permits",
           subtitle: "Employment-based visa programs",
-          items: WORK_PERMIT_COUNTRIES.map((c) => ({ title: c, subtitle: "Work Permit", service: `Work Permit — ${c}` })),
+          items: WORK_PERMIT_COUNTRIES.map((c) => ({
+            title: c,
+            subtitle: "Work Permit",
+            service: `Work Permit — ${c}`,
+          })),
         },
       ]}
     />

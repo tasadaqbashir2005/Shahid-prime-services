@@ -1,28 +1,48 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, MessageCircle, FileText, ShieldCheck, Building, Briefcase, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  MessageCircle,
+  FileText,
+  ShieldCheck,
+  Building,
+  Briefcase,
+  CheckCircle2,
+} from "lucide-react";
 import { waLink } from "@/lib/site-data";
 
 export const Route = createFileRoute("/services_/cr-provider")({
   head: () => ({
     meta: [
       { title: "CR Provider in Saudi Arabia — Commercial Registration | SHAHID PRIME" },
-      { name: "description", content: "We provide Commercial Registration (CR) in Saudi Arabia and help you set up and grow your business — end-to-end licensing, MOFA, Chamber of Commerce, tax and municipality support." },
+      {
+        name: "description",
+        content:
+          "We provide Commercial Registration (CR) in Saudi Arabia and help you set up and grow your business — end-to-end licensing, MOFA, Chamber of Commerce, tax and municipality support.",
+      },
       { property: "og:title", content: "CR Provider in Saudi Arabia — SHAHID PRIME" },
-      { property: "og:description", content: "Get your Saudi Commercial Registration (CR) and full business setup support in Jeddah and across KSA." },
+      {
+        property: "og:description",
+        content:
+          "Get your Saudi Commercial Registration (CR) and full business setup support in Jeddah and across KSA.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://dream-route-hub.lovable.app/services/cr-provider" }],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "CR Provider — Commercial Registration in Saudi Arabia",
-        description: "Commercial Registration (CR) issuance and full business setup support in Saudi Arabia — MOFA, Chamber of Commerce, ZATCA, municipality (Baladiya) and GOSI.",
-        provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
-        areaServed: "Saudi Arabia",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "CR Provider — Commercial Registration in Saudi Arabia",
+          description:
+            "Commercial Registration (CR) issuance and full business setup support in Saudi Arabia — MOFA, Chamber of Commerce, ZATCA, municipality (Baladiya) and GOSI.",
+          provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
+          areaServed: "Saudi Arabia",
+        }),
+      },
+    ],
   }),
   component: CRProviderPage,
 });
@@ -32,28 +52,48 @@ const packages = [
     title: "Sole Proprietorship CR",
     subtitle: "For individual owners",
     icon: Briefcase,
-    points: ["Issuance of CR (Commercial Registration)", "Chamber of Commerce membership", "MOFA & municipality filings", "Bank account guidance"],
+    points: [
+      "Issuance of CR (Commercial Registration)",
+      "Chamber of Commerce membership",
+      "MOFA & municipality filings",
+      "Bank account guidance",
+    ],
     service: "CR Provider — Sole Proprietorship",
   },
   {
     title: "LLC / Company Formation",
     subtitle: "Limited Liability Company",
     icon: Building,
-    points: ["MISA (foreign investment) support", "Articles of Association drafting", "CR + Chamber of Commerce", "ZATCA (Tax) & GOSI registration"],
+    points: [
+      "MISA (foreign investment) support",
+      "Articles of Association drafting",
+      "CR + Chamber of Commerce",
+      "ZATCA (Tax) & GOSI registration",
+    ],
     service: "CR Provider — LLC Formation",
   },
   {
     title: "Establishment (Muassasah)",
     subtitle: "For local Saudi setup",
     icon: FileText,
-    points: ["Full CR issuance", "Municipality (Baladiya) license", "Chamber membership & attestations", "Trade name reservation"],
+    points: [
+      "Full CR issuance",
+      "Municipality (Baladiya) license",
+      "Chamber membership & attestations",
+      "Trade name reservation",
+    ],
     service: "CR Provider — Establishment",
   },
   {
     title: "Renewals & Amendments",
     subtitle: "Keep your business compliant",
     icon: ShieldCheck,
-    points: ["CR renewal & activity update", "Partner / capital amendments", "Chamber & municipality renewals", "Full compliance & liaison"],
+    points: [
+      "CR renewal & activity update",
+      "Partner / capital amendments",
+      "Chamber & municipality renewals",
+      "Full compliance & liaison",
+    ],
     service: "CR Provider — Renewals & Amendments",
   },
 ];
@@ -71,7 +111,12 @@ const included = [
 
 function CRProviderPage() {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="pt-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="pt-24"
+    >
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -102,7 +147,9 @@ function CRProviderPage() {
             Commercial Registration (CR) in Saudi Arabia
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-            We provide Saudi Commercial Registration and end-to-end business setup — from trade name and CR issuance to Chamber of Commerce, ZATCA, GOSI and municipality licensing — so you can launch and grow your business with confidence.
+            We provide Saudi Commercial Registration and end-to-end business setup — from trade name
+            and CR issuance to Chamber of Commerce, ZATCA, GOSI and municipality licensing — so you
+            can launch and grow your business with confidence.
           </p>
         </div>
       </section>
@@ -112,7 +159,9 @@ function CRProviderPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 text-center">
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">Setup Packages</p>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[#0B2545] sm:text-4xl">Choose your business structure</h2>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-[#0B2545] sm:text-4xl">
+              Choose your business structure
+            </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {packages.map((p, i) => (
@@ -129,7 +178,9 @@ function CRProviderPage() {
                     <p.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <div className="text-[10px] font-semibold uppercase tracking-widest text-[#D4AF37]">{p.subtitle}</div>
+                    <div className="text-[10px] font-semibold uppercase tracking-widest text-[#D4AF37]">
+                      {p.subtitle}
+                    </div>
                     <h3 className="font-serif text-xl font-bold text-[#0B2545]">{p.title}</h3>
                   </div>
                 </div>
@@ -165,7 +216,9 @@ function CRProviderPage() {
           {/* Included */}
           <div className="mt-16 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
             <h3 className="font-serif text-2xl font-bold text-[#0B2545]">What&rsquo;s included</h3>
-            <p className="mt-2 text-sm text-slate-500">A complete, hands-on setup so you can focus on running your business.</p>
+            <p className="mt-2 text-sm text-slate-500">
+              A complete, hands-on setup so you can focus on running your business.
+            </p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {included.map((it) => (
                 <li key={it} className="flex items-start gap-2 text-sm text-slate-700">

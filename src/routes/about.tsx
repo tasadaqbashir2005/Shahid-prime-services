@@ -1,13 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Award, HeartHandshake, ShieldCheck, Sparkles, Target, Users, ArrowRight, Compass } from "lucide-react";
+import {
+  Award,
+  HeartHandshake,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Users,
+  ArrowRight,
+  Compass,
+} from "lucide-react";
 import aboutBanner from "@/assets/about-banner.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About Us — SHAHID PRIME SERVICES" },
-      { name: "description", content: "A decade of embassy-level expertise. Learn about our mission, vision, and why thousands of travelers trust SHAHID PRIME SERVICES." },
+      {
+        name: "description",
+        content:
+          "A decade of embassy-level expertise. Learn about our mission, vision, and why thousands of travelers trust SHAHID PRIME SERVICES.",
+      },
       { property: "og:title", content: "About SHAHID PRIME SERVICES" },
       { property: "og:description", content: "A decade of embassy-level visa expertise." },
     ],
@@ -16,17 +29,46 @@ export const Route = createFileRoute("/about")({
 });
 
 const whys = [
-  { icon: ShieldCheck, title: "Embassy Expertise", text: "Decade-long relationships with consulate protocols and documentation standards." },
-  { icon: Award, title: "98% Approval Rate", text: "Meticulously vetted files translate into industry-leading success rates." },
-  { icon: HeartHandshake, title: "Personal Consultation", text: "Every client gets a dedicated case manager, not a call-center agent." },
-  { icon: Sparkles, title: "Transparent Pricing", text: "No hidden fees. Clear itemized quotes before you commit." },
-  { icon: Users, title: "5,200+ Happy Clients", text: "From students to families to business travelers — we've served them all." },
-  { icon: Compass, title: "Global Reach", text: "32+ countries actively processed across Europe, Americas, Asia and Oceania." },
+  {
+    icon: ShieldCheck,
+    title: "Embassy Expertise",
+    text: "Decade-long relationships with consulate protocols and documentation standards.",
+  },
+  {
+    icon: Award,
+    title: "98% Approval Rate",
+    text: "Meticulously vetted files translate into industry-leading success rates.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Personal Consultation",
+    text: "Every client gets a dedicated case manager, not a call-center agent.",
+  },
+  {
+    icon: Sparkles,
+    title: "Transparent Pricing",
+    text: "No hidden fees. Clear itemized quotes before you commit.",
+  },
+  {
+    icon: Users,
+    title: "5,200+ Happy Clients",
+    text: "From students to families to business travelers — we've served them all.",
+  },
+  {
+    icon: Compass,
+    title: "Global Reach",
+    text: "32+ countries actively processed across Europe, Americas, Asia and Oceania.",
+  },
 ];
 
 function AboutPage() {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="pt-32">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="pt-32"
+    >
       {/* Header */}
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
@@ -37,17 +79,27 @@ function AboutPage() {
             </h1>
             <div className="mt-6 space-y-4 text-slate-600 leading-relaxed">
               <p>
-                SHAHID PRIME SERVICES was born from a simple belief: travel should never be intimidating. We started in a small office serving a handful of families and grew into a trusted name synonymous with visa success.
+                SHAHID PRIME SERVICES was born from a simple belief: travel should never be
+                intimidating. We started in a small office serving a handful of families and grew
+                into a trusted name synonymous with visa success.
               </p>
               <p>
-                Today, our team of consultants, case managers and legal advisors process files across Europe, the UK, USA, Canada, Australia, and the entire Gulf. Every application receives the same white-glove attention that built our reputation.
+                Today, our team of consultants, case managers and legal advisors process files
+                across Europe, the UK, USA, Canada, Australia, and the entire Gulf. Every
+                application receives the same white-glove attention that built our reputation.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/services" className="inline-flex items-center gap-2 rounded-full gradient-royal px-6 py-3 text-sm font-semibold text-white shadow-md hover:scale-[1.03] transition-transform">
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 rounded-full gradient-royal px-6 py-3 text-sm font-semibold text-white shadow-md hover:scale-[1.03] transition-transform"
+              >
                 Explore Services <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-[#0B2545] hover:bg-[#F8F9FA]">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-[#0B2545] hover:bg-[#F8F9FA]"
+              >
                 Talk to a Consultant
               </Link>
             </div>
@@ -76,8 +128,16 @@ function AboutPage() {
       <section className="mt-24 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
           {[
-            { icon: Target, title: "Our Mission", text: "To empower every traveler with transparent, expert-led visa services that eliminate uncertainty and unlock global opportunity." },
-            { icon: Compass, title: "Our Vision", text: "To become the most trusted visa consultancy in South Asia, setting the gold standard for professionalism and client care." },
+            {
+              icon: Target,
+              title: "Our Mission",
+              text: "To empower every traveler with transparent, expert-led visa services that eliminate uncertainty and unlock global opportunity.",
+            },
+            {
+              icon: Compass,
+              title: "Our Vision",
+              text: "To become the most trusted visa consultancy in South Asia, setting the gold standard for professionalism and client care.",
+            },
           ].map((it) => (
             <motion.div
               key={it.title}

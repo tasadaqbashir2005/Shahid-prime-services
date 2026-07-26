@@ -7,21 +7,28 @@ export const Route = createFileRoute("/services_/saudi-khidmat")({
   head: () => ({
     meta: [
       { title: "Saudi Khidmat Services — Kafala, Wakala, Azad Visa | SHAHID PRIME" },
-      { name: "description", content: "Complete in-country Saudi services: Wakala, Naqal Kafala, Azad Visa, Amal Manzali and more — managed on your behalf." },
+      {
+        name: "description",
+        content:
+          "Complete in-country Saudi services: Wakala, Naqal Kafala, Azad Visa, Amal Manzali and more — managed on your behalf.",
+      },
       { property: "og:title", content: "Saudi Khidmat Services — SHAHID PRIME" },
       { property: "og:description", content: "In-country Saudi services handled end-to-end." },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "Saudi Khidmat Services",
-        description: "In-country Saudi services — Wakala, Naqal Kafala, Azad Visa, Amal Manzali and more.",
-        provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
-        areaServed: "Saudi Arabia",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Saudi Khidmat Services",
+          description:
+            "In-country Saudi services — Wakala, Naqal Kafala, Azad Visa, Amal Manzali and more.",
+          provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
+          areaServed: "Saudi Arabia",
+        }),
+      },
+    ],
   }),
   component: () => (
     <SubServicePage
@@ -34,7 +41,11 @@ export const Route = createFileRoute("/services_/saudi-khidmat")({
         {
           title: "Saudi Services",
           subtitle: "Professionally handled from Pakistan",
-          items: SAUDI_SERVICES.map((s) => ({ title: s, subtitle: "Saudi Khidmat", service: `Saudi Khidmat — ${s}` })),
+          items: SAUDI_SERVICES.map((s) => ({
+            title: s,
+            subtitle: "Saudi Khidmat",
+            service: `Saudi Khidmat — ${s}`,
+          })),
         },
       ]}
     />

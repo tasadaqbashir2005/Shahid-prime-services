@@ -13,9 +13,17 @@ export const Route = createFileRoute("/blog")({
         content:
           "Expert travel and visa guides from Shahid Prime Travel and Tours — Umrah, Schengen, Saudi work visa, study visa, Dubai tourist visa and business setup in KSA.",
       },
-      { name: "keywords", content: "travel blog, visa blog, umrah guide, schengen visa, saudi work visa, study visa europe, dubai visit visa, cr saudi arabia" },
+      {
+        name: "keywords",
+        content:
+          "travel blog, visa blog, umrah guide, schengen visa, saudi work visa, study visa europe, dubai visit visa, cr saudi arabia",
+      },
       { property: "og:title", content: "Travel & Visa Blog — Shahid Prime Travel and Tours" },
-      { property: "og:description", content: "SEO-optimized guides on Umrah, Schengen, Saudi work visa, study visa and airline ticketing." },
+      {
+        property: "og:description",
+        content:
+          "SEO-optimized guides on Umrah, Schengen, Saudi work visa, study visa and airline ticketing.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://dream-route-hub.lovable.app/blog" },
     ],
@@ -52,18 +60,25 @@ function BlogIndex() {
   const posts = cat === "All" ? BLOG_POSTS : BLOG_POSTS.filter((p) => p.category === cat);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="pt-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="pt-24"
+    >
       {/* HERO */}
       <section className="gradient-royal px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl text-center text-white">
           <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl gradient-gold text-[#0B2545]">
             <BookOpen className="h-6 w-6" />
           </div>
-          <p className="mt-4 text-xs uppercase tracking-[0.25em] text-[#D4AF37]">Travel & Visa Insights</p>
+          <p className="mt-4 text-xs uppercase tracking-[0.25em] text-[#D4AF37]">
+            Travel & Visa Insights
+          </p>
           <h1 className="mt-3 font-serif text-4xl font-bold sm:text-5xl">The Shahid Prime Blog</h1>
           <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Practical, research-driven guides on Umrah, Schengen &amp; global visas, Saudi work permits, study abroad and airline
-            ticketing — written by our team in Jeddah.
+            Practical, research-driven guides on Umrah, Schengen &amp; global visas, Saudi work
+            permits, study abroad and airline ticketing — written by our team in Jeddah.
           </p>
         </div>
       </section>
@@ -111,14 +126,23 @@ function BlogIndex() {
                     <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-widest text-[#D4AF37]">
                       <span>{p.category}</span>
                       <span className="text-slate-300">•</span>
-                      <span className="flex items-center gap-1 text-slate-500"><Clock className="h-3 w-3" /> {p.readMinutes} min</span>
+                      <span className="flex items-center gap-1 text-slate-500">
+                        <Clock className="h-3 w-3" /> {p.readMinutes} min
+                      </span>
                     </div>
                     <h2 className="mt-3 font-serif text-lg font-bold leading-snug text-[#0B2545] group-hover:text-[#134074]">
                       {p.title}
                     </h2>
                     <p className="mt-2 line-clamp-3 text-sm text-slate-600">{p.description}</p>
                     <div className="mt-5 flex items-center justify-between text-xs text-slate-500">
-                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(p.updatedAt).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}</span>
+                      <span className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />{" "}
+                        {new Date(p.updatedAt).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
                       <span className="inline-flex items-center gap-1 font-semibold text-[#0B2545] group-hover:gap-2 transition-all">
                         Read <ArrowRight className="h-3.5 w-3.5" />
                       </span>

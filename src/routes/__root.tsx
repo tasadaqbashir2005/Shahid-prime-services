@@ -21,9 +21,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-[#0B2545]">404</h1>
         <h2 className="mt-4 text-xl font-semibold">Page not found</h2>
-        <p className="mt-2 text-sm text-slate-500">
-          The page you're looking for doesn't exist.
-        </p>
+        <p className="mt-2 text-sm text-slate-500">The page you're looking for doesn't exist.</p>
         <div className="mt-6">
           <Link
             to="/"
@@ -51,12 +49,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-slate-500">Try refreshing or head home.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="inline-flex items-center justify-center rounded-full bg-[#0B2545] px-6 py-3 text-sm font-medium text-white hover:bg-[#134074]"
           >
             Try again
           </button>
-          <a href="/" className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-medium">
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-medium"
+          >
             Go home
           </a>
         </div>
@@ -71,15 +75,41 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "SHAHID PRIME SERVICES — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
-      { name: "description", content: "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries." },
-      { property: "og:title", content: "SHAHID PRIME SERVICES — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
-      { property: "og:description", content: "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries." },
+      {
+        name: "description",
+        content:
+          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+      },
+      {
+        property: "og:title",
+        content: "SHAHID PRIME SERVICES — Visa, Umrah, Saudi Khidmat & Airline Tickets",
+      },
+      {
+        property: "og:description",
+        content:
+          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "SHAHID PRIME SERVICES — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
-      { name: "twitter:description", content: "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7be786e9-ef4b-4146-b02c-2b4a2eb785c0/id-preview-46c54571--e0bbb59c-4133-4b9f-8a88-e50a6cef92e1.lovable.app-1784370974410.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7be786e9-ef4b-4146-b02c-2b4a2eb785c0/id-preview-46c54571--e0bbb59c-4133-4b9f-8a88-e50a6cef92e1.lovable.app-1784370974410.png" },
+      {
+        name: "twitter:title",
+        content: "SHAHID PRIME SERVICES — Visa, Umrah, Saudi Khidmat & Airline Tickets",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7be786e9-ef4b-4146-b02c-2b4a2eb785c0/id-preview-46c54571--e0bbb59c-4133-4b9f-8a88-e50a6cef92e1.lovable.app-1784370974410.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7be786e9-ef4b-4146-b02c-2b4a2eb785c0/id-preview-46c54571--e0bbb59c-4133-4b9f-8a88-e50a6cef92e1.lovable.app-1784370974410.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -87,7 +117,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://images.unsplash.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

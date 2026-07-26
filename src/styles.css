@@ -60,10 +60,10 @@
   --ring: oklch(0.704 0.04 256.788);
 
   /* Brand */
-  --royal: #0B2545;
+  --royal: #0b2545;
   --navy: #134074;
-  --gold: #D4AF37;
-  --offwhite: #F8F9FA;
+  --gold: #d4af37;
+  --offwhite: #f8f9fa;
 }
 
 @layer base {
@@ -78,7 +78,11 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
   }
@@ -97,11 +101,11 @@
 }
 
 @utility gradient-royal {
-  background: linear-gradient(135deg, #0B2545 0%, #134074 100%);
+  background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
 }
 
 @utility gradient-gold {
-  background: linear-gradient(135deg, #D4AF37 0%, #F4D06F 100%);
+  background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
 }
 
 /* Perf: defer offscreen work on tall pages */
@@ -111,12 +115,19 @@
 }
 
 /* Smoother scrolling + image rendering */
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-img { image-rendering: -webkit-optimize-contrast; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
 
 /* Respect user's motion preferences for a smoother, less janky feel */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

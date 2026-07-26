@@ -7,21 +7,31 @@ export const Route = createFileRoute("/services_/airline-ticketing")({
   head: () => ({
     meta: [
       { title: "Airline Ticketing — International & Domestic | SHAHID PRIME" },
-      { name: "description", content: "Airline tickets for all major international and domestic airlines at highly competitive and discounted prices." },
+      {
+        name: "description",
+        content:
+          "Airline tickets for all major international and domestic airlines at highly competitive and discounted prices.",
+      },
       { property: "og:title", content: "Airline Ticketing — SHAHID PRIME" },
-      { property: "og:description", content: "Discounted international, domestic, group and corporate airline tickets." },
+      {
+        property: "og:description",
+        content: "Discounted international, domestic, group and corporate airline tickets.",
+      },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "Airline Ticketing",
-        description: "International and domestic airline tickets at competitive, discounted prices.",
-        provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
-        areaServed: "Worldwide",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Airline Ticketing",
+          description:
+            "International and domestic airline tickets at competitive, discounted prices.",
+          provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
+          areaServed: "Worldwide",
+        }),
+      },
+    ],
   }),
   component: () => (
     <SubServicePage
@@ -34,7 +44,11 @@ export const Route = createFileRoute("/services_/airline-ticketing")({
         {
           title: "Ticketing Options",
           subtitle: "Choose the option that fits your travel",
-          items: AIRLINE_SERVICES.map((s) => ({ title: s, subtitle: "Airline Ticketing", service: `Airline Ticketing — ${s}` })),
+          items: AIRLINE_SERVICES.map((s) => ({
+            title: s,
+            subtitle: "Airline Ticketing",
+            service: `Airline Ticketing — ${s}`,
+          })),
         },
       ]}
     />

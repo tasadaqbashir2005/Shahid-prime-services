@@ -23,10 +23,25 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "SHAHID PRIME — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
-      { name: "description", content: "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries." },
-      { name: "keywords", content: "visa consultancy Pakistan, Schengen visa, Umrah visa, study visa Europe, Saudi Khidmat, Wakala, Kafala, Azad visa, airline tickets, SHAHID PRIME SERVICES" },
-      { property: "og:title", content: "SHAHID PRIME — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
-      { property: "og:description", content: "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries." },
+      {
+        name: "description",
+        content:
+          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+      },
+      {
+        name: "keywords",
+        content:
+          "visa consultancy Pakistan, Schengen visa, Umrah visa, study visa Europe, Saudi Khidmat, Wakala, Kafala, Azad visa, airline tickets, SHAHID PRIME SERVICES",
+      },
+      {
+        property: "og:title",
+        content: "SHAHID PRIME — Visa, Umrah, Saudi Khidmat & Airline Tickets",
+      },
+      {
+        property: "og:description",
+        content:
+          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
     ],
@@ -34,24 +49,35 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: "/" },
       { rel: "preload", as: "image", href: bannerAsset.url, fetchpriority: "high" },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "TravelAgency",
-        name: "SHAHID PRIME SERVICES",
-        description: "International visa consultancy, Umrah packages, Saudi Khidmat services and airline ticketing.",
-        areaServed: "Worldwide",
-        address: { "@type": "PostalAddress", addressCountry: "SA", addressLocality: "Jeddah" },
-        telephone: "+966592119762",
-        email: "info@shahidprimeservices.com",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          name: "SHAHID PRIME SERVICES",
+          description:
+            "International visa consultancy, Umrah packages, Saudi Khidmat services and airline ticketing.",
+          areaServed: "Worldwide",
+          address: { "@type": "PostalAddress", addressCountry: "SA", addressLocality: "Jeddah" },
+          telephone: "+966592119762",
+          email: "info@shahidprimeservices.com",
+        }),
+      },
+    ],
   }),
   component: HomePage,
 });
 
-function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: string; decimals?: number }) {
+function Counter({
+  to,
+  suffix = "",
+  decimals = 0,
+}: {
+  to: number;
+  suffix?: string;
+  decimals?: number;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [n, setN] = useState(0);
@@ -68,34 +94,93 @@ function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: strin
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [inView, to]);
-  const formatted = decimals > 0
-    ? n.toFixed(decimals)
-    : Math.floor(n).toLocaleString();
-  return <span ref={ref}>{formatted}{suffix}</span>;
+  const formatted = decimals > 0 ? n.toFixed(decimals) : Math.floor(n).toLocaleString();
+  return (
+    <span ref={ref}>
+      {formatted}
+      {suffix}
+    </span>
+  );
 }
 
-
 const services = [
-  { icon: Plane, title: "Visit Visa", desc: "Schengen, UK, USA, Canada, Australia and more.", href: "/services/visit-visa" as const },
-  { icon: GraduationCap, title: "Study Visa", desc: "Europe universities — Hungary, Germany, France, Italy.", href: "/services/study-visa" as const },
-  { icon: Moon, title: "Umrah Visa", desc: "1 & 3 month Umrah packages with full support.", href: "/services/umrah" as const },
-  { icon: Building2, title: "Saudi Khidmat", desc: "Wakala, Kafala, Azad Visa, Amal Manzali & more.", href: "/services/saudi-khidmat" as const },
-  { icon: Ticket, title: "Airline Ticketing", desc: "International & domestic flights at discounted prices.", href: "/services/airline-ticketing" as const },
-  { icon: Briefcase, title: "CR Provider", desc: "Commercial Registration in Saudi Arabia — build your business.", href: "/services/cr-provider" as const },
+  {
+    icon: Plane,
+    title: "Visit Visa",
+    desc: "Schengen, UK, USA, Canada, Australia and more.",
+    href: "/services/visit-visa" as const,
+  },
+  {
+    icon: GraduationCap,
+    title: "Study Visa",
+    desc: "Europe universities — Hungary, Germany, France, Italy.",
+    href: "/services/study-visa" as const,
+  },
+  {
+    icon: Moon,
+    title: "Umrah Visa",
+    desc: "1 & 3 month Umrah packages with full support.",
+    href: "/services/umrah" as const,
+  },
+  {
+    icon: Building2,
+    title: "Saudi Khidmat",
+    desc: "Wakala, Kafala, Azad Visa, Amal Manzali & more.",
+    href: "/services/saudi-khidmat" as const,
+  },
+  {
+    icon: Ticket,
+    title: "Airline Ticketing",
+    desc: "International & domestic flights at discounted prices.",
+    href: "/services/airline-ticketing" as const,
+  },
+  {
+    icon: Briefcase,
+    title: "CR Provider",
+    desc: "Commercial Registration in Saudi Arabia — build your business.",
+    href: "/services/cr-provider" as const,
+  },
 ];
 
-
 const steps = [
-  { icon: MessageCircle, title: "Consultation", desc: "Free WhatsApp consultation to understand your goals & eligibility." },
-  { icon: FileText, title: "Documentation", desc: "We prepare and vet every document to embassy standards." },
-  { icon: BadgeCheck, title: "Visa Approval", desc: "Track your file until stamped — delivered to your doorstep." },
+  {
+    icon: MessageCircle,
+    title: "Consultation",
+    desc: "Free WhatsApp consultation to understand your goals & eligibility.",
+  },
+  {
+    icon: FileText,
+    title: "Documentation",
+    desc: "We prepare and vet every document to embassy standards.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Visa Approval",
+    desc: "Track your file until stamped — delivered to your doorstep.",
+  },
 ];
 
 const testimonials = [
-  { name: "Ahmed R.", role: "Schengen Visa — Italy", text: "Impeccable service. My Schengen visa was approved without a single hiccup. Highly professional team." },
-  { name: "Sana K.", role: "Study Visa — Germany", text: "They guided me through every step of the German study visa process. I owe my new life to them." },
-  { name: "Bilal M.", role: "Umrah — 3 Month", text: "Booked my Umrah with SHAHID PRIME. Everything was arranged flawlessly. May Allah bless the team." },
-  { name: "Fatima J.", role: "Saudi Khidmat — Kafala", text: "Handled my Naqal Kafala remotely from Pakistan. Fast, transparent, and reliable service." },
+  {
+    name: "Ahmed R.",
+    role: "Schengen Visa — Italy",
+    text: "Impeccable service. My Schengen visa was approved without a single hiccup. Highly professional team.",
+  },
+  {
+    name: "Sana K.",
+    role: "Study Visa — Germany",
+    text: "They guided me through every step of the German study visa process. I owe my new life to them.",
+  },
+  {
+    name: "Bilal M.",
+    role: "Umrah — 3 Month",
+    text: "Booked my Umrah with SHAHID PRIME. Everything was arranged flawlessly. May Allah bless the team.",
+  },
+  {
+    name: "Fatima J.",
+    role: "Saudi Khidmat — Kafala",
+    text: "Handled my Naqal Kafala remotely from Pakistan. Fast, transparent, and reliable service.",
+  },
 ];
 
 function HomePage() {
@@ -163,7 +248,8 @@ function HomePage() {
             </div>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              From Global Visit visa and study visas to Umrah and Saudi Khidmat — we handle every step with white-glove precision, so you can travel with confidence.
+              From Global Visit visa and study visas to Umrah and Saudi Khidmat — we handle every
+              step with white-glove precision, so you can travel with confidence.
             </p>
 
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
@@ -171,7 +257,8 @@ function HomePage() {
                 to="/services"
                 className="group inline-flex items-center justify-center gap-2 rounded-full gradient-gold px-6 py-3.5 text-sm font-semibold text-[#0B2545] shadow-[0_10px_40px_-10px_rgba(212,175,55,0.7)] transition-all hover:scale-[1.04] hover:shadow-[0_15px_50px_-10px_rgba(212,175,55,0.9)] sm:px-8 sm:py-4"
               >
-                Apply Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Apply Now{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
                 href={waLink("Hello, I'd like to inquire about your visa services.")}
@@ -185,17 +272,21 @@ function HomePage() {
 
             {/* Trust bar */}
             <div className="mx-auto mt-14 flex max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs uppercase tracking-widest text-white/60">
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#D4AF37]" /> 99.9% Success</span>
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-[#D4AF37]" /> 99.9% Success
+              </span>
               <span className="hidden h-1 w-1 rounded-full bg-[#D4AF37]/60 sm:block" />
-              <span className="flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-[#D4AF37]" /> 52+ Countries</span>
+              <span className="flex items-center gap-2">
+                <BadgeCheck className="h-4 w-4 text-[#D4AF37]" /> 52+ Countries
+              </span>
               <span className="hidden h-1 w-1 rounded-full bg-[#D4AF37]/60 sm:block" />
-              <span className="flex items-center gap-2"><Star className="h-4 w-4 fill-[#D4AF37] text-[#D4AF37]" /> 15+ Years</span>
+              <span className="flex items-center gap-2">
+                <Star className="h-4 w-4 fill-[#D4AF37] text-[#D4AF37]" /> 15+ Years
+              </span>
             </div>
           </motion.div>
         </div>
       </section>
-
-
 
       {/* STATS */}
       <section className="relative -mt-16 px-4 pb-4 sm:px-6 lg:px-8">
@@ -211,10 +302,11 @@ function HomePage() {
                 <div className="font-serif text-3xl font-bold text-[#0B2545] sm:text-4xl md:text-5xl">
                   <Counter to={it.n} suffix={it.s} decimals={it.d ?? 0} />
                 </div>
-                <div className="mt-2 text-xs uppercase tracking-widest text-slate-500 sm:text-sm">{it.label}</div>
+                <div className="mt-2 text-xs uppercase tracking-widest text-slate-500 sm:text-sm">
+                  {it.label}
+                </div>
               </div>
             ))}
-
           </div>
         </div>
       </section>
@@ -250,7 +342,8 @@ function HomePage() {
                   <h3 className="mt-6 font-serif text-xl font-bold text-[#0B2545]">{s.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-500">{s.desc}</p>
                   <div className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#0B2545] group-hover:text-[#D4AF37]">
-                    Explore <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    Explore{" "}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </Link>
               </motion.div>
@@ -264,8 +357,12 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">The Process</p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[#0B2545] sm:text-4xl md:text-5xl">How It Works</h2>
-            <p className="mt-4 text-slate-500">Three simple steps from first call to visa in hand.</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-[#0B2545] sm:text-4xl md:text-5xl">
+              How It Works
+            </h2>
+            <p className="mt-4 text-slate-500">
+              Three simple steps from first call to visa in hand.
+            </p>
           </div>
 
           <div className="relative mt-16 grid gap-8 md:grid-cols-3">
@@ -282,7 +379,9 @@ function HomePage() {
                 <div className="mx-auto grid h-20 w-20 place-items-center rounded-full gradient-royal text-white shadow-lg ring-8 ring-[#F8F9FA]">
                   <step.icon className="h-8 w-8 text-[#D4AF37]" />
                 </div>
-                <div className="mt-2 text-xs font-semibold uppercase tracking-widest text-[#D4AF37]">Step {i + 1}</div>
+                <div className="mt-2 text-xs font-semibold uppercase tracking-widest text-[#D4AF37]">
+                  Step {i + 1}
+                </div>
                 <h3 className="mt-2 font-serif text-2xl font-bold text-[#0B2545]">{step.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-500">{step.desc}</p>
               </motion.div>
@@ -347,13 +446,16 @@ function HomePage() {
             <div>
               <div className="flex items-center gap-2 text-[#D4AF37]">
                 <ShieldCheck className="h-5 w-5" />
-                <span className="text-xs font-semibold uppercase tracking-widest">100% Confidential</span>
+                <span className="text-xs font-semibold uppercase tracking-widest">
+                  100% Confidential
+                </span>
               </div>
               <h3 className="mt-3 font-serif text-3xl font-bold text-white sm:text-4xl">
                 Ready to start your journey?
               </h3>
               <p className="mt-3 max-w-xl text-white/70">
-                Get a free eligibility check today. Our consultants respond within minutes on WhatsApp.
+                Get a free eligibility check today. Our consultants respond within minutes on
+                WhatsApp.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -365,7 +467,8 @@ function HomePage() {
               </Link>
               <a
                 href={waLink("Hi, I'd like a free eligibility check.")}
-                target="_blank" rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur hover:bg-white/20"
               >
                 <MessageCircle className="h-4 w-4" /> WhatsApp

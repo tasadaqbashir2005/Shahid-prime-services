@@ -9,9 +9,7 @@ export type HubspotLead = {
   message?: string;
 };
 
-export type HubspotLeadResult =
-  | { ok: true; id: string | null }
-  | { ok: false; error: string };
+export type HubspotLeadResult = { ok: true; id: string | null } | { ok: false; error: string };
 
 type Transport = {
   url: string;
@@ -47,9 +45,7 @@ function resolveTransport(): Transport | null {
   // Legacy HubSpot API key (hapikey). Only works on portals that still have a
   // legacy key enabled — HubSpot retired these for most accounts.
   const legacyKey =
-    process.env.HUBSPOT_LEGACY_API_KEY ??
-    process.env.HUBSPOT_HAPIKEY ??
-    process.env.HAPIKEY;
+    process.env.HUBSPOT_LEGACY_API_KEY ?? process.env.HUBSPOT_HAPIKEY ?? process.env.HAPIKEY;
   if (legacyKey) {
     return {
       url: HUBSPOT_API_URL,
@@ -91,7 +87,6 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   }
   const { url, headers, query } = transport;
 
-
   const [firstname, ...rest] = lead.fullName.split(/\s+/);
   const details = [
     `Full Name: ${lead.fullName}`,
@@ -104,17 +99,29 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   // Which contact properties actually exist in this portal? Sending an unknown
   // property makes HubSpot reject the whole request with 400, so we only send
   // fields the portal really has and fold the rest into a note.
-  type PortalProp = { name: string; label: string; type?: string; fieldType?: string; readOnly?: boolean };
+  type PortalProp = {
+    name: string;
+    label: string;
+    type?: string;
+    fieldType?: string;
+    readOnly?: boolean;
+  };
   const portalProps: PortalProp[] = [];
   const existing = new Set<string>();
   try {
-    const propsRes = await fetch(
-      `${url}/crm/v3/properties/contacts${query}`,
-      { method: "GET", headers },
-    );
+    const propsRes = await fetch(`${url}/crm/v3/properties/contacts${query}`, {
+      method: "GET",
+      headers,
+    });
     if (propsRes.ok) {
       const json = (await propsRes.json()) as {
-        results?: { name?: string; label?: string; type?: string; fieldType?: string; modificationMetadata?: { readOnlyValue?: boolean } }[];
+        results?: {
+          name?: string;
+          label?: string;
+          type?: string;
+          fieldType?: string;
+          modificationMetadata?: { readOnlyValue?: boolean };
+        }[];
       };
       json.results?.forEach((p) => {
         if (!p.name) return;
@@ -150,9 +157,7 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     }
     // then normalized name / label match
     for (const w of wanted) {
-      const p = portalProps.find(
-        (x) => !x.readOnly && (norm(x.name) === w || norm(x.label) === w),
-      );
+      const p = portalProps.find((x) => !x.readOnly && (norm(x.name) === w || norm(x.label) === w));
       if (p) return p.name;
     }
     // finally a contains match on the label
@@ -193,7 +198,6 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     `HubSpot field mapping -> service: ${serviceField ?? "none"}, description: ${notesField ?? "none"} (portal props: ${portalProps.length})`,
   );
 
-
   /**
    * POST/PATCH properties; if HubSpot still rejects a property, drop it and retry.
    */
@@ -223,7 +227,9 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
       } catch {
         /* fall through to regex scan */
       }
-      for (const m of body.matchAll(/\\?"([A-Za-z0-9_]+)\\?"\s*(?:does not exist|is not valid)/gi)) {
+      for (const m of body.matchAll(
+        /\\?"([A-Za-z0-9_]+)\\?"\s*(?:does not exist|is not valid)/gi,
+      )) {
         invalid.add(m[1]);
       }
       const droppable = [...invalid].filter(
@@ -236,7 +242,11 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
       }
       return { res, body, props: current };
     }
-    return { res: new Response(null, { status: 400 }), body: "Exhausted property retries", props: current };
+    return {
+      res: new Response(null, { status: 400 }),
+      body: "Exhausted property retries",
+      props: current,
+    };
   }
 
   /** Attach the full lead details as a HubSpot note so nothing is lost. */
@@ -264,8 +274,11 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     }
   }
 
-
-  const created = await sendProperties(`${url}/crm/v3/objects/contacts${query}`, "POST", properties);
+  const created = await sendProperties(
+    `${url}/crm/v3/objects/contacts${query}`,
+    "POST",
+    properties,
+  );
 
   if (created.res.ok) {
     const json = (await created.res.json()) as { id?: string };
@@ -293,7 +306,5 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     }
   }
 
-
   return { ok: false, error: `HubSpot request failed (${created.res.status})` };
 }
-

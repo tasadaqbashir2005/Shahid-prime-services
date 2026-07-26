@@ -70,9 +70,18 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>Based in Jeddah with 15+ years of experience serving pilgrims from Pakistan, UAE and across the Gulf, we combine local Saudi expertise with fast digital processing. From visa to ziyarat, we handle the entire journey.</p>
     `,
     faqs: [
-      { q: "How much does an Umrah visa cost from Pakistan?", a: "Umrah visa government fees vary by season. Contact Shahid Prime on WhatsApp for the latest package pricing including visa, ticket and hotel." },
-      { q: "Can women perform Umrah without a Mahram?", a: "Yes, since 2022 women above 18 can perform Umrah without a Mahram provided they travel with an organized group." },
-      { q: "How many times can I perform Umrah in a year?", a: "Under current Nusuk rules, one Umrah per pilgrim per Hijri year is permitted; additional permits may be issued in specific windows." },
+      {
+        q: "How much does an Umrah visa cost from Pakistan?",
+        a: "Umrah visa government fees vary by season. Contact Shahid Prime on WhatsApp for the latest package pricing including visa, ticket and hotel.",
+      },
+      {
+        q: "Can women perform Umrah without a Mahram?",
+        a: "Yes, since 2022 women above 18 can perform Umrah without a Mahram provided they travel with an organized group.",
+      },
+      {
+        q: "How many times can I perform Umrah in a year?",
+        a: "Under current Nusuk rules, one Umrah per pilgrim per Hijri year is permitted; additional permits may be issued in specific windows.",
+      },
     ],
   },
   {
@@ -121,8 +130,14 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>Our team has helped thousands of clients secure Schengen visas with high approval rates. Message us on WhatsApp for a free eligibility review.</p>
     `,
     faqs: [
-      { q: "How long is a Schengen tourist visa valid?", a: "Typically up to 90 days within any 180-day period. Multiple-entry visas can be valid for 1–5 years." },
-      { q: "Can I apply for a Schengen visa from Saudi Arabia?", a: "Yes — residents of Saudi Arabia can apply through the consulate of their intended primary destination in Riyadh or Jeddah." },
+      {
+        q: "How long is a Schengen tourist visa valid?",
+        a: "Typically up to 90 days within any 180-day period. Multiple-entry visas can be valid for 1–5 years.",
+      },
+      {
+        q: "Can I apply for a Schengen visa from Saudi Arabia?",
+        a: "Yes — residents of Saudi Arabia can apply through the consulate of their intended primary destination in Riyadh or Jeddah.",
+      },
     ],
   },
   {

@@ -32,11 +32,23 @@ export function SubServicePage({
   groups: SubGroup[];
 }) {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="pt-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="pt-24"
+    >
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={heroImage} alt={title} loading="eager" decoding="async" fetchPriority="high" className="h-full w-full object-cover" />
+          <img
+            src={heroImage}
+            alt={title}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-[#0B2545]/95 via-[#0B2545]/85 to-[#134074]/70" />
         </div>
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
@@ -68,7 +80,9 @@ export function SubServicePage({
             <div key={g.title} className={gi > 0 ? "mt-16" : ""}>
               <div className="mb-8 flex items-end justify-between gap-4">
                 <div>
-                  <h2 className="font-serif text-2xl font-bold text-[#0B2545] sm:text-3xl">{g.title}</h2>
+                  <h2 className="font-serif text-2xl font-bold text-[#0B2545] sm:text-3xl">
+                    {g.title}
+                  </h2>
                   {g.subtitle && <p className="mt-1 text-sm text-slate-500">{g.subtitle}</p>}
                 </div>
                 <div className="h-px flex-1 bg-gradient-to-r from-[#D4AF37]/40 to-transparent" />
@@ -89,7 +103,9 @@ export function SubServicePage({
                           {it.subtitle}
                         </div>
                       )}
-                      <h4 className="mt-1 font-serif text-lg font-bold text-[#0B2545]">{it.title}</h4>
+                      <h4 className="mt-1 font-serif text-lg font-bold text-[#0B2545]">
+                        {it.title}
+                      </h4>
                     </div>
                     <div className="mt-5 flex flex-col gap-2">
                       <Link

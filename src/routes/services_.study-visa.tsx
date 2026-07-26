@@ -7,21 +7,31 @@ export const Route = createFileRoute("/services_/study-visa")({
   head: () => ({
     meta: [
       { title: "Study Visa — European Universities | SHAHID PRIME" },
-      { name: "description", content: "Study visa consulting for top European universities with scholarship guidance and full application support." },
+      {
+        name: "description",
+        content:
+          "Study visa consulting for top European universities with scholarship guidance and full application support.",
+      },
       { property: "og:title", content: "Study Visa — SHAHID PRIME" },
-      { property: "og:description", content: "Accredited European universities with end-to-end application support." },
+      {
+        property: "og:description",
+        content: "Accredited European universities with end-to-end application support.",
+      },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "Study Visa Services",
-        description: "Study visa consulting for top European universities with scholarship guidance and full application support.",
-        provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
-        areaServed: "Europe",
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Study Visa Services",
+          description:
+            "Study visa consulting for top European universities with scholarship guidance and full application support.",
+          provider: { "@type": "TravelAgency", name: "SHAHID PRIME SERVICES" },
+          areaServed: "Europe",
+        }),
+      },
+    ],
   }),
   component: () => (
     <SubServicePage
@@ -34,7 +44,11 @@ export const Route = createFileRoute("/services_/study-visa")({
         {
           title: "Study Destinations",
           subtitle: "Choose your future — we handle the rest",
-          items: STUDY_COUNTRIES.map((c) => ({ title: c, subtitle: "Study Visa", service: `Study Visa — ${c}` })),
+          items: STUDY_COUNTRIES.map((c) => ({
+            title: c,
+            subtitle: "Study Visa",
+            service: `Study Visa — ${c}`,
+          })),
         },
       ]}
     />

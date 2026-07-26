@@ -10,17 +10,41 @@ export const waLink = (text?: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 export const SCHENGEN_COUNTRIES = [
-  "Italy", "Germany", "Netherlands", "Switzerland", "Czech Republic", "Spain", "Portugal",
+  "Italy",
+  "Germany",
+  "Netherlands",
+  "Switzerland",
+  "Czech Republic",
+  "Spain",
+  "Portugal",
 ];
 export const GLOBAL_COUNTRIES = [
-  "USA", "UK", "Australia", "Japan", "Canada", "New Zealand", "Albania",
+  "USA",
+  "UK",
+  "Australia",
+  "Japan",
+  "Canada",
+  "New Zealand",
+  "Albania",
 ];
 export const WORK_PERMIT_COUNTRIES = ["Portugal", "Albania", "Bulgaria"];
 export const STUDY_COUNTRIES = [
-  "Hungary", "Italy", "Bulgaria", "Romania", "Slovenia", "Slovakia", "Germany", "France",
+  "Hungary",
+  "Italy",
+  "Bulgaria",
+  "Romania",
+  "Slovenia",
+  "Slovakia",
+  "Germany",
+  "France",
 ];
 export const SAUDI_SERVICES = [
-  "Wakala", "Agency Services", "Naqal Kafala", "Azad Visa", "Amal Manzali", "Saie Khas",
+  "Wakala",
+  "Agency Services",
+  "Naqal Kafala",
+  "Azad Visa",
+  "Amal Manzali",
+  "Saie Khas",
 ];
 export const AIRLINE_SERVICES = [
   "International Flights",
@@ -44,4 +68,3 @@ export const ALL_SERVICES: string[] = [
   ...SAUDI_SERVICES.map((s) => `Saudi Khidmat — ${s}`),
   ...AIRLINE_SERVICES.map((s) => `Airline Ticketing — ${s}`),
 ];
-

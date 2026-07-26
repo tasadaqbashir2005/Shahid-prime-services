@@ -32,7 +32,12 @@ export function WhatsAppFab() {
       style={{ animation: "pulse-green 2s infinite" }}
       aria-label="Chat on WhatsApp"
     >
-      <img src={waIcon.url} alt="Contact us on WhatsApp" className="h-full w-full drop-shadow-lg" style={{ filter: "drop-shadow(0 4px 10px rgba(37,211,102,0.55))" }} />
+      <img
+        src={waIcon.url}
+        alt="Contact us on WhatsApp"
+        className="h-full w-full drop-shadow-lg"
+        style={{ filter: "drop-shadow(0 4px 10px rgba(37,211,102,0.55))" }}
+      />
       <style>{`
         @keyframes pulse-green {
           0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
