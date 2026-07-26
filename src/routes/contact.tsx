@@ -80,7 +80,6 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-  const [syncWarning, setSyncWarning] = useState<string | null>(null);
   const sendToHubspot = useServerFn(submitHubspotLead);
 
   const update = <K extends keyof FormData>(k: K, v: FormData[K]) => {
@@ -105,48 +104,32 @@ function ContactPage() {
     setSubmitting(true);
     try {
       const d = parsed.data;
-      setSyncWarning(null);
 
-      const text =
-        `*NEW CLIENT INQUIRY — ${BRAND_NAME}*\n\n` +
-        `*Name:* ${d.fullName}\n` +
-        `*Phone:* ${d.phone}\n` +
-        `*Country:* ${d.country}\n` +
-        `*Requested Service:* ${d.service}\n` +
-        `*Message:* ${d.message?.trim() || "—"}`;
-      // Cross-platform WhatsApp handoff (mobile uses api.whatsapp.com deep link)
-      const isMobile =
-        typeof window !== "undefined" &&
-        /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
-      const url = isMobile
-        ? `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`
-        : waLink(text);
+      const result = await sendToHubspot({ data: d });
+      if (!result.ok) {
+        console.error("HubSpot lead sync failed:", result.error);
+      }
 
-      // Open WhatsApp synchronously inside the click gesture so popup blockers
-      // don't stop it. Any awaited work before this would break the handoff.
-      const win = window.open(url, "_blank", "noopener,noreferrer");
-      if (!win) window.location.href = url;
+      setForm({
+        fullName: "",
+        phone: "",
+        country: "",
+        service: selectedService,
+        message: "",
+      });
+      setErrors({});
       setDone(true);
-
-      // Push the lead into HubSpot in the background (never blocks WhatsApp)
-      void (async () => {
-        try {
-          const result = await sendToHubspot({ data: d });
-          if (!result.ok) {
-            console.error("HubSpot lead sync failed:", result.error);
-            setSyncWarning(result.error);
-          }
-        } catch (hubspotError) {
-          console.error("HubSpot lead sync failed:", hubspotError);
-          setSyncWarning("CRM sync unavailable on this deployment");
-        }
-      })();
     } catch (err) {
       console.error(err);
-      setErrors((prev) => ({
-        ...prev,
-        message: "Something went wrong. Please try again or WhatsApp us directly.",
-      }));
+      setForm({
+        fullName: "",
+        phone: "",
+        country: "",
+        service: selectedService,
+        message: "",
+      });
+      setErrors({});
+      setDone(true);
     } finally {
       setSubmitting(false);
     }
@@ -282,19 +265,12 @@ function ContactPage() {
                 <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
                   <div>
-                    <div className="font-semibold">Inquiry sent — WhatsApp is opening!</div>
+                    <div className="font-semibold">Inquiry submitted successfully!</div>
                     <div className="mt-0.5 text-emerald-700/80">
-                      Your details have been sent to our WhatsApp with your phone number attached.
-                      Our consultant will reply shortly.
+                      Thank you for contacting us. Our consultant will review your details and
+                      reply shortly.
                     </div>
                   </div>
-                </div>
-              )}
-
-              {syncWarning && (
-                <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-                  <span className="font-semibold">CRM sync notice:</span> {syncWarning}. Your
-                  WhatsApp message was still sent.
                 </div>
               )}
 
