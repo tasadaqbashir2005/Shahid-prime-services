@@ -180,8 +180,9 @@ function ContactPage() {
         console.error("HubSpot lead sync failed:", hubspotError);
       }
       generatePDF(d);
-
+      const text =
         `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
+
         `*Name:* ${d.fullName}\n` +
         `*Phone:* ${d.phone}\n` +
         `*Country:* ${d.country}\n` +
