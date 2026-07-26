@@ -67,7 +67,7 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     );
     return {
       ok: false,
-      error: `HubSpot token missing on server (env keys seen: ${seen || "none"})`,
+      error: `HubSpot token missing on server (env keys seen: ${seen || "none"}; total env vars: ${Object.keys(process.env ?? {}).length})`,
     };
   }
 
