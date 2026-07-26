@@ -54,6 +54,8 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const sendToHubspot = useServerFn(submitHubspotLead);
+
 
   const update = <K extends keyof FormData>(k: K, v: FormData[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
