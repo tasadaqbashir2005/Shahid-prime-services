@@ -171,9 +171,16 @@ function ContactPage() {
     }
     setSubmitting(true);
     try {
-      generatePDF(parsed.data);
       const d = parsed.data;
-      const text =
+      // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
+      try {
+        const result = await sendToHubspot({ data: d });
+        if (!result.ok) console.error("HubSpot lead sync failed:", result.error);
+      } catch (hubspotError) {
+        console.error("HubSpot lead sync failed:", hubspotError);
+      }
+      generatePDF(d);
+
         `*NEW CLIENT APPLICATION — ${BRAND_NAME}*\n\n` +
         `*Name:* ${d.fullName}\n` +
         `*Phone:* ${d.phone}\n` +
