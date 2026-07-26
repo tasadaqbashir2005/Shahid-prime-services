@@ -8,7 +8,6 @@ import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
 import {
   ALL_SERVICES,
-  BRAND_NAME,
   CONTACT_ADDRESS,
   CONTACT_EMAIL,
   WHATSAPP_DISPLAY,
