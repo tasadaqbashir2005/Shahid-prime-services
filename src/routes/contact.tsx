@@ -92,7 +92,7 @@ function ContactPage() {
     setSubmitting(true);
     try {
       const d = parsed.data;
-      // Push the lead into HubSpot (non-blocking for the user's PDF/WhatsApp flow)
+      // Push the lead into HubSpot (non-blocking for the user's WhatsApp flow)
       setSyncWarning(null);
       let serverError: string | null = null;
       try {
@@ -275,7 +275,7 @@ function ContactPage() {
               {syncWarning && (
                 <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
                   <span className="font-semibold">CRM sync notice:</span> {syncWarning}. Your
-                  WhatsApp message and PDF were still generated.
+                  WhatsApp message was still sent.
                 </div>
               )}
 
