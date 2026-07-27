@@ -311,7 +311,7 @@ function ContactPage() {
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
                     onBlur={normalizePhoneField}
-                    placeholder="03114811886 or +923114811886"
+                    placeholder="Enter your number"
                     className={inputCls}
                   />
 
