@@ -60,7 +60,7 @@ export const Route = createFileRoute("/")({
             "International visa consultancy, Umrah packages, Saudi Khidmat services and airline ticketing.",
           areaServed: "Worldwide",
           address: { "@type": "PostalAddress", addressCountry: "SA", addressLocality: "Jeddah" },
-          telephone: "+966592119762",
+          telephone: "+966599569397",
           email: "info@shahidprimeservices.com",
         }),
       },

@@ -1,5 +1,5 @@
-export const WHATSAPP_NUMBER = "966592119762";
-export const WHATSAPP_DISPLAY = "+966 59 211 9762";
+export const WHATSAPP_NUMBER = "966599569397";
+export const WHATSAPP_DISPLAY = "+966 59 956 9397";
 export const CONTACT_EMAIL = "info@shahidprimeservices.com";
 export const CONTACT_ADDRESS = "Jeddah, Saudi Arabia";
 export const BRAND_NAME = "SHAHID PRIME SERVICES";
