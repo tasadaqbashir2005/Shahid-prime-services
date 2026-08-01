@@ -27,12 +27,12 @@ const faqs = [
 export const Route = createFileRoute("/services_/vat-accounting")({
   head: () => ({
     meta: pageMeta({
-      title: "VAT Registration (ZATCA) & Accounting Services in Saudi Arabia",
+      title: "VAT Registration Saudi Arabia (ZATCA) | Accounting Services",
       description:
-        "ZATCA VAT registration, e-invoicing, bookkeeping, payroll, Zakat filing and corporate bank account opening support for companies in Jeddah and across Saudi Arabia.",
+        "VAT registration in Saudi Arabia with ZATCA — e-invoicing, bookkeeping, payroll, Zakat filing and corporate bank account support for companies in Jeddah and across KSA.",
       path: PATH,
       keywords:
-        "VAT registration ZATCA, tax consultant near me, accounting services near me, corporate bank account Saudi Arabia, Zakat filing, bookkeeping Jeddah, تسجيل ضريبة القيمة المضافة",
+        "vat registration saudi arabia, ZATCA VAT registration, tax consultant Saudi Arabia, accounting services Jeddah, Zakat filing, bookkeeping Jeddah, تسجيل ضريبة القيمة المضافة",
     }),
     links: [{ rel: "canonical", href: abs(PATH) }],
     scripts: [
@@ -64,8 +64,8 @@ export const Route = createFileRoute("/services_/vat-accounting")({
   component: () => (
     <LandingPage
       eyebrow="VAT & Accounting"
-      h1="VAT Registration (ZATCA), Accounting & Corporate Banking"
-      intro="Stay compliant from your first invoice. We register your company with ZATCA, set up Fatoora e-invoicing, keep your books, file VAT and Zakat returns, and prepare the documentation Saudi banks need to open your corporate account."
+      h1="VAT Registration in Saudi Arabia (ZATCA) & Accounting Services"
+      intro="Stay compliant from your first invoice. We complete your VAT registration in Saudi Arabia with ZATCA, set up Fatoora e-invoicing, keep your books, file VAT and Zakat returns, and prepare the documentation Saudi banks need to open your corporate account."
       heroImage="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=75&auto=format&fit=crop"
       heroAlt="Accountant preparing VAT and ZATCA filings for a Saudi company"
       icon={Calculator}

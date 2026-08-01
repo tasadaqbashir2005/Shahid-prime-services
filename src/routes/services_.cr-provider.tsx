@@ -15,18 +15,26 @@ import { waLink } from "@/lib/site-data";
 export const Route = createFileRoute("/services_/cr-provider")({
   head: () => ({
     meta: [
-      { title: "CR Provider in Saudi Arabia — Commercial Registration | SHAHID PRIME" },
+      { title: "Commercial Registration Saudi Arabia | CR Registration Service" },
       {
         name: "description",
         content:
-          "We provide Commercial Registration (CR) in Saudi Arabia and help you set up and grow your business — end-to-end licensing, MOFA, Chamber of Commerce, tax and municipality support.",
+          "Commercial registration in Saudi Arabia made simple: CR registration, company formation, Chamber of Commerce, ZATCA, GOSI and municipality licensing from our Jeddah office.",
       },
-      { property: "og:title", content: "CR Provider in Saudi Arabia — SHAHID PRIME" },
+      {
+        name: "keywords",
+        content:
+          "commercial registration saudi arabia, cr registration saudi arabia, company formation saudi arabia, CR provider Jeddah, business setup in saudi arabia",
+      },
+      { property: "og:title", content: "Commercial Registration Saudi Arabia | CR Registration" },
       {
         property: "og:description",
         content:
-          "Get your Saudi Commercial Registration (CR) and full business setup support in Jeddah and across KSA.",
+          "CR registration and company formation in Saudi Arabia — full commercial registration support in Jeddah and across KSA.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://sprimeservices.com/services/cr-provider" },
     ],
     links: [{ rel: "canonical", href: "https://sprimeservices.com/services/cr-provider" }],
     scripts: [
@@ -144,12 +152,12 @@ function CRProviderPage() {
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">CR Provider</p>
           </div>
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Commercial Registration (CR) in Saudi Arabia
+            Commercial Registration in Saudi Arabia
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-            We provide Saudi Commercial Registration and end-to-end business setup — from trade name
-            and CR issuance to Chamber of Commerce, ZATCA, GOSI and municipality licensing — so you
-            can launch and grow your business with confidence.
+            We handle CR registration in Saudi Arabia end to end — trade name reservation,
+            commercial registration issuance, Chamber of Commerce, ZATCA, GOSI and municipality
+            licensing — so your company formation in Saudi Arabia is complete and compliant.
           </p>
         </div>
       </section>

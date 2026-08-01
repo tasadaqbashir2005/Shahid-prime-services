@@ -6,15 +6,28 @@ import { waLink } from "@/lib/site-data";
 export const Route = createFileRoute("/services_/umrah")({
   head: () => ({
     meta: [
-      { title: "Umrah Visa — 1 & 3 Month Packages | SHAHID PRIME" },
+      { title: "Umrah Visa from Saudi Arabia | 1 & 3 Month Umrah Visa" },
       {
         name: "description",
         content:
-          "1-Month and 3-Month Umrah visa packages with priority processing, full documentation support and WhatsApp assistance.",
+          "Apply for an Umrah visa with priority processing — 1 month and 3 month Umrah visa options, full documentation support, Makkah and Madinah ziyarat, WhatsApp assistance.",
       },
-      { property: "og:title", content: "Umrah Visa Packages — SHAHID PRIME" },
-      { property: "og:description", content: "Blessed journeys, professionally arranged." },
+      {
+        name: "keywords",
+        content:
+          "umrah visa, umrah visa saudi arabia, 1 month umrah visa, 3 month umrah visa, umrah visa Jeddah, تأشيرة عمرة",
+      },
+      { property: "og:title", content: "Umrah Visa | 1 & 3 Month Umrah Visa Services" },
+      {
+        property: "og:description",
+        content:
+          "Umrah visa processing with full documentation support for Makkah and Madinah journeys.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://sprimeservices.com/services/umrah" },
     ],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/services/umrah" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -92,11 +105,12 @@ function UmrahPage() {
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">Umrah Visa</p>
           </div>
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Umrah Visa
+            Umrah Visa Services
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-            Blessed journeys, professionally arranged. Choose the package that fits your plans and
-            let us handle the paperwork.
+            Apply for your Umrah visa with confidence. Choose a 1 month or 3 month Umrah visa, and
+            our Jeddah team handles the documentation, ziyarat guidance for Makkah and Madinah, and
+            same-day updates.
           </p>
         </div>
       </section>
