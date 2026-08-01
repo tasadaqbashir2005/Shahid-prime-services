@@ -3,8 +3,12 @@ export const WHATSAPP_DISPLAY = "+966 59 956 9397";
 export const CONTACT_EMAIL = "info@shahidprimeservices.com";
 export const CONTACT_ADDRESS = "Jeddah, Saudi Arabia";
 export const BRAND_NAME = "SHAHID PRIME SERVICES";
-export const INSTAGRAM_URL = "https://instagram.com/sshahidprime";
-export const FACEBOOK_URL = "https://facebook.com/sshahidprime";
+export const INSTAGRAM_URL = "https://instagram.com/shahidprimeservices";
+export const FACEBOOK_URL = "https://facebook.com/shahidprimeservices";
+export const INSTAGRAM_HANDLE = "shahidprimeservices";
+export const FACEBOOK_HANDLE = "Shahid Prime Services";
+export const SITE_URL = "https://sprimeservices.com";
+export const CR_NUMBER = "7052788051";
 
 export const waLink = (text?: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
