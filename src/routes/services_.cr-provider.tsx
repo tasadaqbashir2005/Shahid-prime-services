@@ -152,12 +152,12 @@ function CRProviderPage() {
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">CR Provider</p>
           </div>
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Commercial Registration (CR) in Saudi Arabia
+            Commercial Registration in Saudi Arabia
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-            We provide Saudi Commercial Registration and end-to-end business setup — from trade name
-            and CR issuance to Chamber of Commerce, ZATCA, GOSI and municipality licensing — so you
-            can launch and grow your business with confidence.
+            We handle CR registration in Saudi Arabia end to end — trade name reservation,
+            commercial registration issuance, Chamber of Commerce, ZATCA, GOSI and municipality
+            licensing — so your company formation in Saudi Arabia is complete and compliant.
           </p>
         </div>
       </section>
