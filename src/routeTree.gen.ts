@@ -15,6 +15,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BusinessSetupSaudiArabiaRouteImport } from './routes/business-setup-saudi-arabia'
+import { Route as BusinessSetupJeddahRouteImport } from './routes/business-setup-jeddah'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -59,6 +60,11 @@ const BusinessSetupSaudiArabiaRoute =
     path: '/business-setup-saudi-arabia',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BusinessSetupJeddahRoute = BusinessSetupJeddahRouteImport.update({
+  id: '/business-setup-jeddah',
+  path: '/business-setup-jeddah',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
   '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
   '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
   '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
     | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
@@ -208,6 +218,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
     | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
     | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
@@ -249,6 +261,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BusinessSetupJeddahRoute: typeof BusinessSetupJeddahRoute
   BusinessSetupSaudiArabiaRoute: typeof BusinessSetupSaudiArabiaRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/business-setup-saudi-arabia'
       fullPath: '/business-setup-saudi-arabia'
       preLoaderRoute: typeof BusinessSetupSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business-setup-jeddah': {
+      id: '/business-setup-jeddah'
+      path: '/business-setup-jeddah'
+      fullPath: '/business-setup-jeddah'
+      preLoaderRoute: typeof BusinessSetupJeddahRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -410,6 +430,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
+  BusinessSetupJeddahRoute: BusinessSetupJeddahRoute,
   BusinessSetupSaudiArabiaRoute: BusinessSetupSaudiArabiaRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
