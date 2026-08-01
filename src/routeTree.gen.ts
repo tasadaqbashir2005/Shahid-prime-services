@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BusinessSetupSaudiArabiaRouteImport } from './routes/business-setup-saudi-arabia'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -50,6 +51,12 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusinessSetupSaudiArabiaRoute =
+  BusinessSetupSaudiArabiaRouteImport.update({
+    id: '/business-setup-saudi-arabia',
+    path: '/business-setup-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -123,6 +131,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -141,6 +150,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -194,6 +206,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -212,6 +225,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BusinessSetupSaudiArabiaRoute: typeof BusinessSetupSaudiArabiaRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
@@ -260,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business-setup-saudi-arabia': {
+      id: '/business-setup-saudi-arabia'
+      path: '/business-setup-saudi-arabia'
+      fullPath: '/business-setup-saudi-arabia'
+      preLoaderRoute: typeof BusinessSetupSaudiArabiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -349,6 +370,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
+  BusinessSetupSaudiArabiaRoute: BusinessSetupSaudiArabiaRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
