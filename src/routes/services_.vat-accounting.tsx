@@ -27,12 +27,12 @@ const faqs = [
 export const Route = createFileRoute("/services_/vat-accounting")({
   head: () => ({
     meta: pageMeta({
-      title: "VAT Registration (ZATCA) & Accounting Services in Saudi Arabia",
+      title: "VAT Registration Saudi Arabia (ZATCA) | Accounting Services",
       description:
-        "ZATCA VAT registration, e-invoicing, bookkeeping, payroll, Zakat filing and corporate bank account opening support for companies in Jeddah and across Saudi Arabia.",
+        "VAT registration in Saudi Arabia with ZATCA — e-invoicing, bookkeeping, payroll, Zakat filing and corporate bank account support for companies in Jeddah and across KSA.",
       path: PATH,
       keywords:
-        "VAT registration ZATCA, tax consultant near me, accounting services near me, corporate bank account Saudi Arabia, Zakat filing, bookkeeping Jeddah, تسجيل ضريبة القيمة المضافة",
+        "vat registration saudi arabia, ZATCA VAT registration, tax consultant Saudi Arabia, accounting services Jeddah, Zakat filing, bookkeeping Jeddah, تسجيل ضريبة القيمة المضافة",
     }),
     links: [{ rel: "canonical", href: abs(PATH) }],
     scripts: [
