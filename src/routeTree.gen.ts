@@ -19,6 +19,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesVisitVisaRouteImport } from './routes/services_.visit-visa'
+import { Route as ServicesVatAccountingRouteImport } from './routes/services_.vat-accounting'
 import { Route as ServicesUmrahRouteImport } from './routes/services_.umrah'
 import { Route as ServicesStudyVisaRouteImport } from './routes/services_.study-visa'
 import { Route as ServicesSaudiKhidmatRouteImport } from './routes/services_.saudi-khidmat'
@@ -78,6 +79,11 @@ const ServicesVisitVisaRoute = ServicesVisitVisaRouteImport.update({
   path: '/services/visit-visa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesVatAccountingRoute = ServicesVatAccountingRouteImport.update({
+  id: '/services_/vat-accounting',
+  path: '/services/vat-accounting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesUmrahRoute = ServicesUmrahRouteImport.update({
   id: '/services_/umrah',
   path: '/services/umrah',
@@ -132,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
+  '/services/vat-accounting': typeof ServicesVatAccountingRoute
   '/services/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRoutesByTo {
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
+  '/services/vat-accounting': typeof ServicesVatAccountingRoute
   '/services/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRoutesById {
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   '/services_/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services_/study-visa': typeof ServicesStudyVisaRoute
   '/services_/umrah': typeof ServicesUmrahRoute
+  '/services_/vat-accounting': typeof ServicesVatAccountingRoute
   '/services_/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRouteTypes {
@@ -192,6 +201,7 @@ export interface FileRouteTypes {
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
+    | '/services/vat-accounting'
     | '/services/visit-visa'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
+    | '/services/vat-accounting'
     | '/services/visit-visa'
   id:
     | '__root__'
@@ -230,6 +241,7 @@ export interface FileRouteTypes {
     | '/services_/saudi-khidmat'
     | '/services_/study-visa'
     | '/services_/umrah'
+    | '/services_/vat-accounting'
     | '/services_/visit-visa'
   fileRoutesById: FileRoutesById
 }
@@ -249,6 +261,7 @@ export interface RootRouteChildren {
   ServicesSaudiKhidmatRoute: typeof ServicesSaudiKhidmatRoute
   ServicesStudyVisaRoute: typeof ServicesStudyVisaRoute
   ServicesUmrahRoute: typeof ServicesUmrahRoute
+  ServicesVatAccountingRoute: typeof ServicesVatAccountingRoute
   ServicesVisitVisaRoute: typeof ServicesVisitVisaRoute
 }
 
@@ -322,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/services/visit-visa'
       fullPath: '/services/visit-visa'
       preLoaderRoute: typeof ServicesVisitVisaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/vat-accounting': {
+      id: '/services_/vat-accounting'
+      path: '/services/vat-accounting'
+      fullPath: '/services/vat-accounting'
+      preLoaderRoute: typeof ServicesVatAccountingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services_/umrah': {
@@ -402,6 +422,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesSaudiKhidmatRoute: ServicesSaudiKhidmatRoute,
   ServicesStudyVisaRoute: ServicesStudyVisaRoute,
   ServicesUmrahRoute: ServicesUmrahRoute,
+  ServicesVatAccountingRoute: ServicesVatAccountingRoute,
   ServicesVisitVisaRoute: ServicesVisitVisaRoute,
 }
 export const routeTree = rootRouteImport
