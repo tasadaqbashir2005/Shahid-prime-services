@@ -13,6 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { organizationSchema } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-data";
+
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
 function NotFoundComponent() {
