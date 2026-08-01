@@ -6,15 +6,28 @@ import { waLink } from "@/lib/site-data";
 export const Route = createFileRoute("/services_/umrah")({
   head: () => ({
     meta: [
-      { title: "Umrah Visa — 1 & 3 Month Packages | SHAHID PRIME" },
+      { title: "Umrah Visa from Saudi Arabia | 1 & 3 Month Umrah Visa" },
       {
         name: "description",
         content:
-          "1-Month and 3-Month Umrah visa packages with priority processing, full documentation support and WhatsApp assistance.",
+          "Apply for an Umrah visa with priority processing — 1 month and 3 month Umrah visa options, full documentation support, Makkah and Madinah ziyarat, WhatsApp assistance.",
       },
-      { property: "og:title", content: "Umrah Visa Packages — SHAHID PRIME" },
-      { property: "og:description", content: "Blessed journeys, professionally arranged." },
+      {
+        name: "keywords",
+        content:
+          "umrah visa, umrah visa saudi arabia, 1 month umrah visa, 3 month umrah visa, umrah visa Jeddah, تأشيرة عمرة",
+      },
+      { property: "og:title", content: "Umrah Visa | 1 & 3 Month Umrah Visa Services" },
+      {
+        property: "og:description",
+        content:
+          "Umrah visa processing with full documentation support for Makkah and Madinah journeys.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://sprimeservices.com/services/umrah" },
     ],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/services/umrah" }],
     scripts: [
       {
         type: "application/ld+json",
