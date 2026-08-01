@@ -25,9 +25,9 @@ export const Route = createFileRoute("/blog")({
           "SEO-optimized guides on Umrah, Schengen, Saudi work visa, study visa and airline ticketing.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dream-route-hub.lovable.app/blog" },
+      { property: "og:url", content: "https://sprimeservices.com/blog" },
     ],
-    links: [{ rel: "canonical", href: "https://dream-route-hub.lovable.app/blog" }],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/blog" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/blog")({
           "@context": "https://schema.org",
           "@type": "Blog",
           name: "Shahid Prime Travel and Tours — Blog",
-          url: "https://dream-route-hub.lovable.app/blog",
+          url: "https://sprimeservices.com/blog",
           publisher: {
             "@type": "TravelAgency",
             name: "Shahid Prime Travel and Tours",
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/blog")({
             description: p.description,
             datePublished: p.publishedAt,
             dateModified: p.updatedAt,
-            url: `https://dream-route-hub.lovable.app/blog/${p.slug}`,
+            url: `https://sprimeservices.com/blog/${p.slug}`,
           })),
         }),
       },

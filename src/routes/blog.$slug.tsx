@@ -20,7 +20,7 @@ export const Route = createFileRoute("/blog/$slug")({
       };
     }
     const p = loaderData.post;
-    const url = `https://dream-route-hub.lovable.app/blog/${params.slug}`;
+    const url = `https://sprimeservices.com/blog/${params.slug}`;
     return {
       meta: [
         { title: `${p.title} | Shahid Prime` },
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/blog/$slug")({
               name: "Shahid Prime Travel and Tours",
               logo: {
                 "@type": "ImageObject",
-                url: "https://dream-route-hub.lovable.app/favicon.ico",
+                url: "https://sprimeservices.com/favicon.ico",
               },
             },
             mainEntityOfPage: { "@type": "WebPage", "@id": url },
