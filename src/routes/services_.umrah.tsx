@@ -105,11 +105,12 @@ function UmrahPage() {
             <p className="text-xs uppercase tracking-[0.25em] text-[#D4AF37]">Umrah Visa</p>
           </div>
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Umrah Visa
+            Umrah Visa Services
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-            Blessed journeys, professionally arranged. Choose the package that fits your plans and
-            let us handle the paperwork.
+            Apply for your Umrah visa with confidence. Choose a 1 month or 3 month Umrah visa, and
+            our Jeddah team handles the documentation, ziyarat guidance for Makkah and Madinah, and
+            same-day updates.
           </p>
         </div>
       </section>
