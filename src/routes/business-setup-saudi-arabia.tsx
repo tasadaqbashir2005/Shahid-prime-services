@@ -31,9 +31,9 @@ const faqs = [
 export const Route = createFileRoute("/business-setup-saudi-arabia")({
   head: () => ({
     meta: pageMeta({
-      title: "Business Setup in Saudi Arabia | Company Formation Jeddah",
+      title: "Business Setup in Saudi Arabia | Company Formation Services",
       description:
-        "Business setup and company formation in Saudi Arabia: CR registration, MISA licence, PRO services, VAT (ZATCA) and corporate bank account support in Jeddah.",
+        "Business setup in Saudi Arabia and company formation made simple — commercial registration, MISA licence, PRO services, VAT (ZATCA) and corporate banking from Jeddah.",
       path: PATH,
       keywords:
         "business setup Saudi Arabia, company formation Saudi Arabia, commercial registration Saudi Arabia, CR Jeddah, MISA investment license, business consultant Jeddah, LLC registration Saudi Arabia, تأسيس شركة في السعودية",
