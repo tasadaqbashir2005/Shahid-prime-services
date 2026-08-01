@@ -22,6 +22,7 @@ import { Route as ServicesVisitVisaRouteImport } from './routes/services_.visit-
 import { Route as ServicesUmrahRouteImport } from './routes/services_.umrah'
 import { Route as ServicesStudyVisaRouteImport } from './routes/services_.study-visa'
 import { Route as ServicesSaudiKhidmatRouteImport } from './routes/services_.saudi-khidmat'
+import { Route as ServicesProServicesRouteImport } from './routes/services_.pro-services'
 import { Route as ServicesCrProviderRouteImport } from './routes/services_.cr-provider'
 import { Route as ServicesAirlineTicketingRouteImport } from './routes/services_.airline-ticketing'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -92,6 +93,11 @@ const ServicesSaudiKhidmatRoute = ServicesSaudiKhidmatRouteImport.update({
   path: '/services/saudi-khidmat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesProServicesRoute = ServicesProServicesRouteImport.update({
+  id: '/services_/pro-services',
+  path: '/services/pro-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesCrProviderRoute = ServicesCrProviderRouteImport.update({
   id: '/services_/cr-provider',
   path: '/services/cr-provider',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services/cr-provider': typeof ServicesCrProviderRoute
+  '/services/pro-services': typeof ServicesProServicesRoute
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services/cr-provider': typeof ServicesCrProviderRoute
+  '/services/pro-services': typeof ServicesProServicesRoute
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/services_/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services_/cr-provider': typeof ServicesCrProviderRoute
+  '/services_/pro-services': typeof ServicesProServicesRoute
   '/services_/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services_/study-visa': typeof ServicesStudyVisaRoute
   '/services_/umrah': typeof ServicesUmrahRoute
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/airline-ticketing'
     | '/services/cr-provider'
+    | '/services/pro-services'
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/airline-ticketing'
     | '/services/cr-provider'
+    | '/services/pro-services'
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services_/airline-ticketing'
     | '/services_/cr-provider'
+    | '/services_/pro-services'
     | '/services_/saudi-khidmat'
     | '/services_/study-visa'
     | '/services_/umrah'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ServicesAirlineTicketingRoute: typeof ServicesAirlineTicketingRoute
   ServicesCrProviderRoute: typeof ServicesCrProviderRoute
+  ServicesProServicesRoute: typeof ServicesProServicesRoute
   ServicesSaudiKhidmatRoute: typeof ServicesSaudiKhidmatRoute
   ServicesStudyVisaRoute: typeof ServicesStudyVisaRoute
   ServicesUmrahRoute: typeof ServicesUmrahRoute
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSaudiKhidmatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services_/pro-services': {
+      id: '/services_/pro-services'
+      path: '/services/pro-services'
+      fullPath: '/services/pro-services'
+      preLoaderRoute: typeof ServicesProServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services_/cr-provider': {
       id: '/services_/cr-provider'
       path: '/services/cr-provider'
@@ -378,6 +398,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ServicesAirlineTicketingRoute: ServicesAirlineTicketingRoute,
   ServicesCrProviderRoute: ServicesCrProviderRoute,
+  ServicesProServicesRoute: ServicesProServicesRoute,
   ServicesSaudiKhidmatRoute: ServicesSaudiKhidmatRoute,
   ServicesStudyVisaRoute: ServicesStudyVisaRoute,
   ServicesUmrahRoute: ServicesUmrahRoute,
