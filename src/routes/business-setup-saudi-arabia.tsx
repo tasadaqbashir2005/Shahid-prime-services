@@ -69,7 +69,7 @@ export const Route = createFileRoute("/business-setup-saudi-arabia")({
     <LandingPage
       eyebrow="Business Setup"
       h1="Business Setup in Saudi Arabia — Company Formation Made Simple"
-      intro="Shahid Prime Travel and Tours helps entrepreneurs, investors and SMEs start a business in Saudi Arabia — from Commercial Registration (CR) and MISA investment licensing to municipality permits, VAT registration and corporate banking. Based in Jeddah, licensed under CR No. 7052788051, serving the entire Kingdom."
+      intro="Shahid Prime Travel and Tours handles business setup in Saudi Arabia for entrepreneurs, investors and SMEs — company formation, commercial registration (CR), MISA investment licensing, municipality permits, VAT registration and corporate banking. Based in Jeddah, licensed under CR No. 7052788051, serving the entire Kingdom."
       heroImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=75&auto=format&fit=crop"
       heroAlt="Business setup and company formation consultants in Jeddah, Saudi Arabia"
       icon={Building2}
