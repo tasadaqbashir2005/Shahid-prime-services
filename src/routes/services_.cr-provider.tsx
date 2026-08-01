@@ -15,18 +15,26 @@ import { waLink } from "@/lib/site-data";
 export const Route = createFileRoute("/services_/cr-provider")({
   head: () => ({
     meta: [
-      { title: "CR Provider in Saudi Arabia — Commercial Registration | SHAHID PRIME" },
+      { title: "Commercial Registration Saudi Arabia | CR Registration Service" },
       {
         name: "description",
         content:
-          "We provide Commercial Registration (CR) in Saudi Arabia and help you set up and grow your business — end-to-end licensing, MOFA, Chamber of Commerce, tax and municipality support.",
+          "Commercial registration in Saudi Arabia made simple: CR registration, company formation, Chamber of Commerce, ZATCA, GOSI and municipality licensing from our Jeddah office.",
       },
-      { property: "og:title", content: "CR Provider in Saudi Arabia — SHAHID PRIME" },
+      {
+        name: "keywords",
+        content:
+          "commercial registration saudi arabia, cr registration saudi arabia, company formation saudi arabia, CR provider Jeddah, business setup in saudi arabia",
+      },
+      { property: "og:title", content: "Commercial Registration Saudi Arabia | CR Registration" },
       {
         property: "og:description",
         content:
-          "Get your Saudi Commercial Registration (CR) and full business setup support in Jeddah and across KSA.",
+          "CR registration and company formation in Saudi Arabia — full commercial registration support in Jeddah and across KSA.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://sprimeservices.com/services/cr-provider" },
     ],
     links: [{ rel: "canonical", href: "https://sprimeservices.com/services/cr-provider" }],
     scripts: [
