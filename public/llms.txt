@@ -1,20 +1,31 @@
-# SHAHID PRIME SERVICES
+# Shahid Prime Travel and Tours (SHAHID PRIME SERVICES)
 
-> Trusted travel agency in Jeddah, Saudi Arabia offering visa consultancy, Umrah visas, Saudi Khidmat services (Wakala, Kafala, Azad Visa), study visas and airline ticketing worldwide.
+> Business setup, Commercial Registration (CR), MISA licensing, PRO services, VAT/ZATCA and accounting, plus visa consultancy, Umrah visas and airline ticketing. Based in Jeddah, Saudi Arabia. Owner: Shahid Bashir. CR No. 7052788051. Hours: 10:00–22:00 daily. Markets served: Saudi Arabia, Pakistan, UAE.
 
-## Pages
+## Business Setup in Saudi Arabia
 
-- [Home](/): Overview of services, stats, testimonials and contact.
-- [Services](/services): Hub for all offerings — Visit, Study, Umrah, Saudi Khidmat, Airline Ticketing.
+- [Business Setup in Saudi Arabia](/business-setup-saudi-arabia): Company formation, LLC registration, MISA investment licence, CR, VAT and banking.
+- [Business Setup in Jeddah](/business-setup-jeddah): Local Jeddah consultancy for company registration and PRO work.
+- [CR Provider](/services/cr-provider): Commercial Registration issuance, renewals and amendments.
+- [PRO Services](/services/pro-services): Iqama, work permits, Naqal Kafala, Qiwa/Muqeem/Absher, family visas.
+- [VAT & Accounting](/services/vat-accounting): ZATCA VAT registration, e-invoicing, bookkeeping, Zakat, corporate bank accounts.
+
+## Travel & Visa Services
+
+- [Services Hub](/services): All offerings.
 - [Visit Visa](/services/visit-visa): Schengen, global visit visas and work permits.
 - [Study Visa](/services/study-visa): European university admissions and student visas.
-- [Umrah Visa](/services/umrah): Umrah visa processing with same-day updates.
-- [Saudi Khidmat](/services/saudi-khidmat): Wakala, Naqal Kafala, Azad Visa, Amal Manzali and more.
-- [Airline Ticketing](/services/airline-ticketing): International and domestic airline tickets.
-- [About](/about): Company story, mission, vision and why clients choose us.
-- [Contact](/contact): Contact form, WhatsApp and office in Jeddah.
+- [Umrah Visa](/services/umrah): Umrah visa processing.
+- [Saudi Khidmat](/services/saudi-khidmat): Wakala, Naqal Kafala, Azad Visa, Amal Manzali.
+- [Airline Ticketing](/services/airline-ticketing): International and domestic tickets.
+
+## Company
+
+- [About](/about): Company story, mission and vision.
+- [Blog](/blog): Guides on Saudi business setup and visas.
+- [Contact](/contact): Inquiry form, WhatsApp and Jeddah office.
 
 ## Optional
 
-- [Privacy Policy](/privacy): How we handle personal data.
-- [Terms & Conditions](/terms): Terms governing our services.
+- [Privacy Policy](/privacy)
+- [Terms & Conditions](/terms)
