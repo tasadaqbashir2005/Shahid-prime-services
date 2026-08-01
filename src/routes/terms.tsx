@@ -16,7 +16,7 @@ export const Route = createFileRoute("/terms")({
         content: "Read the terms and conditions for our visa, travel, and consultancy services.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://dream-route-hub.lovable.app/terms" }],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/terms" }],
   }),
   component: TermsPage,
 });

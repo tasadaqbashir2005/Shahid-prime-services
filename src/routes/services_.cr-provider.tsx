@@ -28,7 +28,7 @@ export const Route = createFileRoute("/services_/cr-provider")({
           "Get your Saudi Commercial Registration (CR) and full business setup support in Jeddah and across KSA.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://dream-route-hub.lovable.app/services/cr-provider" }],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/services/cr-provider" }],
     scripts: [
       {
         type: "application/ld+json",

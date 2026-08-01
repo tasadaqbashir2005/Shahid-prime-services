@@ -160,7 +160,28 @@ export function Footer() {
                 CR Provider
               </Link>
             </li>
+            <li>
+              <Link to="/business-setup-saudi-arabia" className="hover:text-[#D4AF37]">
+                Business Setup in Saudi Arabia
+              </Link>
+            </li>
+            <li>
+              <Link to="/business-setup-jeddah" className="hover:text-[#D4AF37]">
+                Business Setup in Jeddah
+              </Link>
+            </li>
+            <li>
+              <Link to="/services/pro-services" className="hover:text-[#D4AF37]">
+                PRO Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/services/vat-accounting" className="hover:text-[#D4AF37]">
+                VAT Registration & Accounting
+              </Link>
+            </li>
           </ul>
+
         </div>
 
         <div>

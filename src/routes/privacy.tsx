@@ -16,7 +16,7 @@ export const Route = createFileRoute("/privacy")({
         content: "Our commitment to protecting your privacy and personal data.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://dream-route-hub.lovable.app/privacy" }],
+    links: [{ rel: "canonical", href: "https://sprimeservices.com/privacy" }],
   }),
   component: PrivacyPage,
 });

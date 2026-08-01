@@ -14,13 +14,17 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BusinessSetupSaudiArabiaRouteImport } from './routes/business-setup-saudi-arabia'
+import { Route as BusinessSetupJeddahRouteImport } from './routes/business-setup-jeddah'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesVisitVisaRouteImport } from './routes/services_.visit-visa'
+import { Route as ServicesVatAccountingRouteImport } from './routes/services_.vat-accounting'
 import { Route as ServicesUmrahRouteImport } from './routes/services_.umrah'
 import { Route as ServicesStudyVisaRouteImport } from './routes/services_.study-visa'
 import { Route as ServicesSaudiKhidmatRouteImport } from './routes/services_.saudi-khidmat'
+import { Route as ServicesProServicesRouteImport } from './routes/services_.pro-services'
 import { Route as ServicesCrProviderRouteImport } from './routes/services_.cr-provider'
 import { Route as ServicesAirlineTicketingRouteImport } from './routes/services_.airline-ticketing'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -50,6 +54,17 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusinessSetupSaudiArabiaRoute =
+  BusinessSetupSaudiArabiaRouteImport.update({
+    id: '/business-setup-saudi-arabia',
+    path: '/business-setup-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BusinessSetupJeddahRoute = BusinessSetupJeddahRouteImport.update({
+  id: '/business-setup-jeddah',
+  path: '/business-setup-jeddah',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -70,6 +85,11 @@ const ServicesVisitVisaRoute = ServicesVisitVisaRouteImport.update({
   path: '/services/visit-visa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesVatAccountingRoute = ServicesVatAccountingRouteImport.update({
+  id: '/services_/vat-accounting',
+  path: '/services/vat-accounting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesUmrahRoute = ServicesUmrahRouteImport.update({
   id: '/services_/umrah',
   path: '/services/umrah',
@@ -83,6 +103,11 @@ const ServicesStudyVisaRoute = ServicesStudyVisaRouteImport.update({
 const ServicesSaudiKhidmatRoute = ServicesSaudiKhidmatRouteImport.update({
   id: '/services_/saudi-khidmat',
   path: '/services/saudi-khidmat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesProServicesRoute = ServicesProServicesRouteImport.update({
+  id: '/services_/pro-services',
+  path: '/services/pro-services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesCrProviderRoute = ServicesCrProviderRouteImport.update({
@@ -106,6 +131,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -114,15 +141,19 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services/cr-provider': typeof ServicesCrProviderRoute
+  '/services/pro-services': typeof ServicesProServicesRoute
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
+  '/services/vat-accounting': typeof ServicesVatAccountingRoute
   '/services/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -131,9 +162,11 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services/cr-provider': typeof ServicesCrProviderRoute
+  '/services/pro-services': typeof ServicesProServicesRoute
   '/services/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services/study-visa': typeof ServicesStudyVisaRoute
   '/services/umrah': typeof ServicesUmrahRoute
+  '/services/vat-accounting': typeof ServicesVatAccountingRoute
   '/services/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRoutesById {
@@ -141,6 +174,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/business-setup-jeddah': typeof BusinessSetupJeddahRoute
+  '/business-setup-saudi-arabia': typeof BusinessSetupSaudiArabiaRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -149,9 +184,11 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/services_/airline-ticketing': typeof ServicesAirlineTicketingRoute
   '/services_/cr-provider': typeof ServicesCrProviderRoute
+  '/services_/pro-services': typeof ServicesProServicesRoute
   '/services_/saudi-khidmat': typeof ServicesSaudiKhidmatRoute
   '/services_/study-visa': typeof ServicesStudyVisaRoute
   '/services_/umrah': typeof ServicesUmrahRoute
+  '/services_/vat-accounting': typeof ServicesVatAccountingRoute
   '/services_/visit-visa': typeof ServicesVisitVisaRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +197,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -168,15 +207,19 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/airline-ticketing'
     | '/services/cr-provider'
+    | '/services/pro-services'
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
+    | '/services/vat-accounting'
     | '/services/visit-visa'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -185,15 +228,19 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/airline-ticketing'
     | '/services/cr-provider'
+    | '/services/pro-services'
     | '/services/saudi-khidmat'
     | '/services/study-visa'
     | '/services/umrah'
+    | '/services/vat-accounting'
     | '/services/visit-visa'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/blog'
+    | '/business-setup-jeddah'
+    | '/business-setup-saudi-arabia'
     | '/contact'
     | '/privacy'
     | '/services'
@@ -202,9 +249,11 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services_/airline-ticketing'
     | '/services_/cr-provider'
+    | '/services_/pro-services'
     | '/services_/saudi-khidmat'
     | '/services_/study-visa'
     | '/services_/umrah'
+    | '/services_/vat-accounting'
     | '/services_/visit-visa'
   fileRoutesById: FileRoutesById
 }
@@ -212,6 +261,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BusinessSetupJeddahRoute: typeof BusinessSetupJeddahRoute
+  BusinessSetupSaudiArabiaRoute: typeof BusinessSetupSaudiArabiaRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
@@ -219,9 +270,11 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ServicesAirlineTicketingRoute: typeof ServicesAirlineTicketingRoute
   ServicesCrProviderRoute: typeof ServicesCrProviderRoute
+  ServicesProServicesRoute: typeof ServicesProServicesRoute
   ServicesSaudiKhidmatRoute: typeof ServicesSaudiKhidmatRoute
   ServicesStudyVisaRoute: typeof ServicesStudyVisaRoute
   ServicesUmrahRoute: typeof ServicesUmrahRoute
+  ServicesVatAccountingRoute: typeof ServicesVatAccountingRoute
   ServicesVisitVisaRoute: typeof ServicesVisitVisaRoute
 }
 
@@ -262,6 +315,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/business-setup-saudi-arabia': {
+      id: '/business-setup-saudi-arabia'
+      path: '/business-setup-saudi-arabia'
+      fullPath: '/business-setup-saudi-arabia'
+      preLoaderRoute: typeof BusinessSetupSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business-setup-jeddah': {
+      id: '/business-setup-jeddah'
+      path: '/business-setup-jeddah'
+      fullPath: '/business-setup-jeddah'
+      preLoaderRoute: typeof BusinessSetupJeddahRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -290,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesVisitVisaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services_/vat-accounting': {
+      id: '/services_/vat-accounting'
+      path: '/services/vat-accounting'
+      fullPath: '/services/vat-accounting'
+      preLoaderRoute: typeof ServicesVatAccountingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services_/umrah': {
       id: '/services_/umrah'
       path: '/services/umrah'
@@ -309,6 +383,13 @@ declare module '@tanstack/react-router' {
       path: '/services/saudi-khidmat'
       fullPath: '/services/saudi-khidmat'
       preLoaderRoute: typeof ServicesSaudiKhidmatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/pro-services': {
+      id: '/services_/pro-services'
+      path: '/services/pro-services'
+      fullPath: '/services/pro-services'
+      preLoaderRoute: typeof ServicesProServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services_/cr-provider': {
@@ -349,6 +430,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
+  BusinessSetupJeddahRoute: BusinessSetupJeddahRoute,
+  BusinessSetupSaudiArabiaRoute: BusinessSetupSaudiArabiaRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
@@ -356,21 +439,13 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ServicesAirlineTicketingRoute: ServicesAirlineTicketingRoute,
   ServicesCrProviderRoute: ServicesCrProviderRoute,
+  ServicesProServicesRoute: ServicesProServicesRoute,
   ServicesSaudiKhidmatRoute: ServicesSaudiKhidmatRoute,
   ServicesStudyVisaRoute: ServicesStudyVisaRoute,
   ServicesUmrahRoute: ServicesUmrahRoute,
+  ServicesVatAccountingRoute: ServicesVatAccountingRoute,
   ServicesVisitVisaRoute: ServicesVisitVisaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

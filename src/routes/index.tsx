@@ -22,31 +22,34 @@ import bannerAsset from "@/assets/banner.jpg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SHAHID PRIME — Visa, Umrah, Saudi Khidmat & Airline Tickets" },
+      { title: "Business Setup & Visa Services in Saudi Arabia | Jeddah" },
       {
         name: "description",
         content:
-          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+          "Company formation, Commercial Registration (CR), MISA licence, PRO services, VAT and visa consultancy in Jeddah and across Saudi Arabia. CR No. 7052788051.",
       },
       {
         name: "keywords",
         content:
-          "visa consultancy Pakistan, Schengen visa, Umrah visa, study visa Europe, Saudi Khidmat, Wakala, Kafala, Azad visa, airline tickets, SHAHID PRIME SERVICES",
+          "business setup Saudi Arabia, company formation Jeddah, commercial registration Saudi Arabia, CR provider, MISA license, PRO services near me, VAT registration ZATCA, visa consultancy Jeddah, Umrah visa, تأسيس شركة في السعودية",
       },
       {
         property: "og:title",
-        content: "SHAHID PRIME — Visa, Umrah, Saudi Khidmat & Airline Tickets",
+        content: "Business Setup & Visa Services in Saudi Arabia | Jeddah",
       },
       {
         property: "og:description",
         content:
-          "Trusted travel agency for Schengen, Study & Umrah visas, Saudi Khidmat (Wakala, Kafala, Azad Visa) and airline ticketing. 99.9% success • 15+ years • 52+ countries.",
+          "Company formation, Commercial Registration (CR), MISA licence, PRO services, VAT and visa consultancy in Jeddah and across Saudi Arabia.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://sprimeservices.com/" },
+      { property: "og:locale", content: "en_SA" },
+      { name: "geo.region", content: "SA-02" },
+      { name: "geo.placename", content: "Jeddah" },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: "https://sprimeservices.com/" },
       { rel: "preload", as: "image", href: bannerAsset.url, fetchpriority: "high" },
     ],
     scripts: [
@@ -65,6 +68,7 @@ export const Route = createFileRoute("/")({
         }),
       },
     ],
+
   }),
   component: HomePage,
 });
