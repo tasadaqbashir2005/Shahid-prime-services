@@ -13,13 +13,15 @@ export const submitHubspotLead = createServerFn({ method: "POST" })
         country: z.string().trim().min(2).max(60),
         service: z.string().trim().min(2).max(120),
         message: z.string().trim().max(1000).optional().default(""),
+        // Hidden field — locked server-side so it is always "NEW".
+        leadStatus: z.string().trim().optional().default("NEW"),
       })
       .parse(data);
 
     // Never trust client-side formatting: re-normalize server-side.
     const phone = normalizePhone(parsed.phone, { country: parsed.country });
     if (!phone.valid) throw new Error(INVALID_PHONE_MESSAGE);
-    return { ...parsed, phone: phone.e164 };
+    return { ...parsed, phone: phone.e164, leadStatus: "NEW" };
   })
   .handler(async ({ data }) => createHubspotContact(data));
 

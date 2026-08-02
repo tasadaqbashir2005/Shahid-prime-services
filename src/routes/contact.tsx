@@ -328,6 +328,9 @@ function ContactPage() {
                 </div>
               )}
 
+              {/* Hidden lead status — always NEW so staff can spot fresh leads. */}
+              <input type="hidden" name="leadStatus" value="NEW" readOnly />
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field label="Full Name" error={errors.fullName}>
                   <input

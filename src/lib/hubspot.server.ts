@@ -7,6 +7,8 @@ export type HubspotLead = {
   country: string;
   service: string;
   message?: string;
+  /** Hidden form field — always "NEW" so staff can spot fresh website leads. */
+  leadStatus?: string;
 };
 
 export type HubspotLeadResult = { ok: true; id: string | null } | { ok: false; error: string };
@@ -193,6 +195,15 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
   if (notesField && notesField !== serviceField) {
     properties[notesField] = lead.message?.trim() ? lead.message.trim() : details;
   }
+
+  // Hidden lead-status field: always "NEW" for website submissions.
+  const leadStatusValue = (lead.leadStatus ?? "NEW").trim() || "NEW";
+  const leadStatusField = findField(["hs_lead_status", "lead_status", "leadstatus"]);
+  if (leadStatusField && ![serviceField, notesField].includes(leadStatusField)) {
+    properties[leadStatusField] = leadStatusValue;
+  }
+
+
 
   console.log(
     `HubSpot field mapping -> service: ${serviceField ?? "none"}, description: ${notesField ?? "none"} (portal props: ${portalProps.length})`,
