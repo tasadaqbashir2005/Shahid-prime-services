@@ -8,9 +8,10 @@ import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
 import { INVALID_PHONE_MESSAGE, normalizePhone } from "@/lib/phone";
 import {
-  ALL_SERVICES,
   CONTACT_ADDRESS,
   CONTACT_EMAIL,
+  SERVICE_GROUPS,
+  SERVICE_SEPARATOR,
   WHATSAPP_DISPLAY,
   WHATSAPP_NUMBER,
   waLink,
