@@ -196,6 +196,15 @@ export async function createHubspotContact(lead: HubspotLead): Promise<HubspotLe
     properties[notesField] = lead.message?.trim() ? lead.message.trim() : details;
   }
 
+  // Hidden lead-status field: always "NEW" for website submissions.
+  const leadStatusValue = (lead.leadStatus ?? "NEW").trim() || "NEW";
+  const leadStatusField = findField(["hs_lead_status", "lead_status", "leadstatus"]);
+  if (leadStatusField && ![serviceField, notesField].includes(leadStatusField)) {
+    properties[leadStatusField] = leadStatusValue;
+  }
+
+
+
   console.log(
     `HubSpot field mapping -> service: ${serviceField ?? "none"}, description: ${notesField ?? "none"} (portal props: ${portalProps.length})`,
   );
