@@ -57,8 +57,6 @@ export const AIRLINE_SERVICES = [
   "Round Trip Tickets",
   "Group Bookings",
   "Corporate Bookings",
-  "Umrah Packages",
-  "Holiday Packages",
   "Last Minute Deals",
 ];
 
