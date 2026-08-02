@@ -361,19 +361,37 @@ function ContactPage() {
                 <div className="sm:col-span-2">
                   <Field label="Select Service" error={errors.service}>
                     <select
-                      value={form.service}
-                      onChange={(e) => update("service", e.target.value)}
+                      value={category}
+                      onChange={(e) => onCategoryChange(e.target.value)}
                       className={inputCls}
                     >
                       <option value="">— Choose a service —</option>
-                      {serviceOptions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
+                      {SERVICE_GROUPS.map((g) => (
+                        <option key={g.category} value={g.category}>
+                          {g.category}
                         </option>
                       ))}
                     </select>
                   </Field>
                 </div>
+                {category && (
+                  <div className="sm:col-span-2">
+                    <Field label={`Select ${category} Option`}>
+                      <select
+                        value={sub}
+                        onChange={(e) => onSubChange(e.target.value)}
+                        className={inputCls}
+                      >
+                        <option value="">— Choose an option —</option>
+                        {subOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                  </div>
+                )}
                 <div className="sm:col-span-2">
                   <Field label="Message (optional)" error={errors.message}>
                     <textarea
