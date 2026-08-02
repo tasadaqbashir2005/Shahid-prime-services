@@ -7,6 +7,8 @@ export type HubspotLead = {
   country: string;
   service: string;
   message?: string;
+  /** Hidden form field — always "NEW" so staff can spot fresh website leads. */
+  leadStatus?: string;
 };
 
 export type HubspotLeadResult = { ok: true; id: string | null } | { ok: false; error: string };
