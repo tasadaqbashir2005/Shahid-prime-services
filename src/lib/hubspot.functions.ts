@@ -13,6 +13,8 @@ export const submitHubspotLead = createServerFn({ method: "POST" })
         country: z.string().trim().min(2).max(60),
         service: z.string().trim().min(2).max(120),
         message: z.string().trim().max(1000).optional().default(""),
+        // Hidden field — locked server-side so it is always "NEW".
+        leadStatus: z.string().trim().optional().default("NEW"),
       })
       .parse(data);
 
