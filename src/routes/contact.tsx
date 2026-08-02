@@ -166,9 +166,10 @@ function ContactPage() {
         fullName: "",
         phone: "",
         country: "",
-        service: selectedService,
+        service: composeService(initial.category, initial.sub),
         message: "",
       });
+      resetService();
       setErrors({});
       setDone(true);
     } catch (err) {
@@ -177,9 +178,10 @@ function ContactPage() {
         fullName: "",
         phone: "",
         country: "",
-        service: selectedService,
+        service: composeService(initial.category, initial.sub),
         message: "",
       });
+      resetService();
       setErrors({});
       setDone(true);
     } finally {
