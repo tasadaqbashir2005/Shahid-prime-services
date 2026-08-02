@@ -69,14 +69,22 @@ export const CR_SERVICES = [
   "Renewals & Amendments",
 ];
 
-export const ALL_SERVICES: string[] = [
-  ...SCHENGEN_COUNTRIES.map((c) => `Schengen Visit Visa — ${c}`),
-  ...GLOBAL_COUNTRIES.map((c) => `Global Visit Visa — ${c}`),
-  ...WORK_PERMIT_COUNTRIES.map((c) => `Work Permit — ${c}`),
-  ...STUDY_COUNTRIES.map((c) => `Study Visa — ${c}`),
-  "Umrah Visa — 1 Month",
-  "Umrah Visa — 3 Month",
-  ...SAUDI_SERVICES.map((s) => `Saudi Khidmat — ${s}`),
-  ...AIRLINE_SERVICES.map((s) => `Airline Ticketing — ${s}`),
-  ...CR_SERVICES.map((s) => `CR Provider — ${s}`),
+/** Main service categories and their sub-services (used by the contact form). */
+export const SERVICE_GROUPS: { category: string; items: string[] }[] = [
+  { category: "Schengen Visit Visa", items: SCHENGEN_COUNTRIES },
+  { category: "Global Visit Visa", items: GLOBAL_COUNTRIES },
+  { category: "Work Permit", items: WORK_PERMIT_COUNTRIES },
+  { category: "Study Visa", items: STUDY_COUNTRIES },
+  { category: "Umrah Visa", items: ["1 Month", "3 Month"] },
+  { category: "Saudi Khidmat", items: SAUDI_SERVICES },
+  { category: "Airline Ticketing", items: AIRLINE_SERVICES },
+  { category: "CR Provider", items: CR_SERVICES },
 ];
+
+/** Separator used between a main service and its sub-service. */
+export const SERVICE_SEPARATOR = " — ";
+
+export const ALL_SERVICES: string[] = SERVICE_GROUPS.flatMap((g) =>
+  g.items.map((i) => `${g.category}${SERVICE_SEPARATOR}${i}`),
+);
+

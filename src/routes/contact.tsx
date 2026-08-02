@@ -8,9 +8,10 @@ import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitHubspotLead } from "@/lib/hubspot.functions";
 import { INVALID_PHONE_MESSAGE, normalizePhone } from "@/lib/phone";
 import {
-  ALL_SERVICES,
   CONTACT_ADDRESS,
   CONTACT_EMAIL,
+  SERVICE_GROUPS,
+  SERVICE_SEPARATOR,
   WHATSAPP_DISPLAY,
   WHATSAPP_NUMBER,
   waLink,
@@ -54,23 +55,37 @@ type FormData = z.infer<typeof formSchema>;
 function ContactPage() {
   const search = useSearch({ from: "/contact" });
   const incomingService = (search.service ?? "").trim();
-  // Keep the pre-selected service from the page the visitor came from, even if
-  // its exact wording isn't in the master list.
-  const serviceOptions = useMemo(() => {
-    const match = ALL_SERVICES.find(
-      (s) => s.toLowerCase() === incomingService.toLowerCase(),
+
+  // Split an incoming "Main — Sub" service into the two dropdown values.
+  const initial = useMemo(() => {
+    if (!incomingService) return { category: "", sub: "" };
+    const lower = incomingService.toLowerCase();
+    const group = SERVICE_GROUPS.find(
+      (g) =>
+        lower === g.category.toLowerCase() ||
+        lower.startsWith(`${g.category.toLowerCase()}${SERVICE_SEPARATOR}`),
     );
-    if (!incomingService || match) return ALL_SERVICES;
-    return [incomingService, ...ALL_SERVICES];
+    if (!group) return { category: "", sub: "" };
+    const rest = incomingService.slice(group.category.length + SERVICE_SEPARATOR.length).trim();
+    const sub = group.items.find((i) => i.toLowerCase() === rest.toLowerCase()) ?? "";
+    return { category: group.category, sub };
   }, [incomingService]);
-  const selectedService =
-    ALL_SERVICES.find((s) => s.toLowerCase() === incomingService.toLowerCase()) ??
-    incomingService;
+
+  const [category, setCategory] = useState(initial.category);
+  const [sub, setSub] = useState(initial.sub);
+  const subOptions = useMemo(
+    () => SERVICE_GROUPS.find((g) => g.category === category)?.items ?? [],
+    [category],
+  );
+
+  const composeService = (cat: string, s: string) =>
+    cat && s ? `${cat}${SERVICE_SEPARATOR}${s}` : "";
+
   const [form, setForm] = useState<FormData>({
     fullName: "",
     phone: "",
     country: "",
-    service: selectedService,
+    service: composeService(initial.category, initial.sub),
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -82,6 +97,23 @@ function ContactPage() {
     setForm((f) => ({ ...f, [k]: v }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
+
+  const onCategoryChange = (value: string) => {
+    setCategory(value);
+    setSub("");
+    update("service", "");
+  };
+
+  const onSubChange = (value: string) => {
+    setSub(value);
+    update("service", composeService(category, value));
+  };
+
+  const resetService = () => {
+    setCategory(initial.category);
+    setSub(initial.sub);
+  };
+
 
   /**
    * Normalize the typed number to E.164 as soon as the field loses focus so the
@@ -134,9 +166,10 @@ function ContactPage() {
         fullName: "",
         phone: "",
         country: "",
-        service: selectedService,
+        service: composeService(initial.category, initial.sub),
         message: "",
       });
+      resetService();
       setErrors({});
       setDone(true);
     } catch (err) {
@@ -145,9 +178,10 @@ function ContactPage() {
         fullName: "",
         phone: "",
         country: "",
-        service: selectedService,
+        service: composeService(initial.category, initial.sub),
         message: "",
       });
+      resetService();
       setErrors({});
       setDone(true);
     } finally {
@@ -327,19 +361,37 @@ function ContactPage() {
                 <div className="sm:col-span-2">
                   <Field label="Select Service" error={errors.service}>
                     <select
-                      value={form.service}
-                      onChange={(e) => update("service", e.target.value)}
+                      value={category}
+                      onChange={(e) => onCategoryChange(e.target.value)}
                       className={inputCls}
                     >
                       <option value="">— Choose a service —</option>
-                      {serviceOptions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
+                      {SERVICE_GROUPS.map((g) => (
+                        <option key={g.category} value={g.category}>
+                          {g.category}
                         </option>
                       ))}
                     </select>
                   </Field>
                 </div>
+                {category && (
+                  <div className="sm:col-span-2">
+                    <Field label={`Select ${category} Option`}>
+                      <select
+                        value={sub}
+                        onChange={(e) => onSubChange(e.target.value)}
+                        className={inputCls}
+                      >
+                        <option value="">— Choose an option —</option>
+                        {subOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                  </div>
+                )}
                 <div className="sm:col-span-2">
                   <Field label="Message (optional)" error={errors.message}>
                     <textarea
