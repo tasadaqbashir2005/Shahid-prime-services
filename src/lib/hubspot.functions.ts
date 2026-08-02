@@ -21,7 +21,7 @@ export const submitHubspotLead = createServerFn({ method: "POST" })
     // Never trust client-side formatting: re-normalize server-side.
     const phone = normalizePhone(parsed.phone, { country: parsed.country });
     if (!phone.valid) throw new Error(INVALID_PHONE_MESSAGE);
-    return { ...parsed, phone: phone.e164 };
+    return { ...parsed, phone: phone.e164, leadStatus: "NEW" };
   })
   .handler(async ({ data }) => createHubspotContact(data));
 
